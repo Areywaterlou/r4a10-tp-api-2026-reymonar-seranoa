@@ -1,155 +1,200 @@
-/* Importation de la police Roboto */
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-
-/* Définition des principales couleurs */
 :root {
-    /* Couleurs principales */
-    --primary-color: #8cc63f;    /* Vert CoinGecko */
-    --primary-hover: #7ab337;
-    --bg-color: #f8f9fa;
-    --card-bg: #ffffff;
-    
-    /* Couleurs de texte */
-    --text-main: #2c3e50;
-    --text-muted: #7f8c8d;
-    
-    /* Éléments de design */
-    --border-radius: 50px;       /* Pour l'effet "pilule" */
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --transition: all 0.3s ease;
-    
-    /* Favoris */
-    --fav-color: #ffc107;        /* Jaune étoile */
+    --bg-dark: #0a0a0b;
+    --card-bg: rgba(20, 20, 22, 0.7);
+    --neon-green: #00ff88;
+    --deep-green: #00a35c;
+    --text-main: #ffffff;
+    --text-dim: #888888;
+    --border-color: rgba(255, 255, 255, 0.1);
 }
 
 * {
-  color: var(--text-color);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg-dark);
     color: var(--text-main);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
-#bloc-recherche {
+/* Effet de halo lumineux en arrière-plan */
+.background-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.main-container {
+    text-align: center;
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 3rem;
+    letter-spacing: -1.5px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.green-text {
+    color: var(--neon-green);
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+header p {
+    color: var(--text-dim);
+    margin-bottom: 50px;
+    font-weight: 300;
+}
+
+/* Barre de recherche style "Barre de commande" */
+.search-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-box:focus-within {
+    border-color: var(--neon-green);
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
+}
+
+.input-wrapper {
     display: flex;
     align-items: center;
     gap: 15px;
-    justify-content: center;
-    margin: 40px auto;
-    max-width: 600px;
+    padding: 5px 15px;
 }
 
-/* La barre de recherche (le wrapper) */
-.search-wrapper {
-    display: flex;
-    align-items: center;
-    background: var(--card-bg);
-    border: 2px solid transparent; 
-    border-radius: var(--border-radius);
-    padding: 6px 20px;
-    flex-grow: 1;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+.search-icon {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px var(--neon-green));
 }
 
-/* Effet au clic dans la barre */
-.search-wrapper:focus-within {
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(140, 198, 63, 0.2);
-}
-
-/* L'input texte */
-#input-crypto {
+input {
+    flex: 1;
+    background: transparent;
     border: none;
     outline: none;
-    padding: 12px;
-    flex-grow: 1;
-    font-size: 1.05rem;
-    background: transparent;
-    color: var(--text-main);
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 0;
 }
 
-/* Bouton Loupe */
-#btn-lancer-recherche {
-    background: none;
+input::placeholder {
+    color: #444;
+}
+
+.search-btn {
+    background: var(--neon-green);
+    color: #000;
     border: none;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 700;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-btn:hover {
+    background: #fff;
+    transform: translateY(-1px);
+}
+
+/* Favoris / Icones en dessous */
+.favorites {
     display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.fav-item {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    transition: var(--transition);
-}
-
-#btn-lancer-recherche:hover {
-    transform: scale(1.2);
-    filter: brightness(0.8);
-}
-
-/* Bouton Favori (Etoile) */
-#btn-favoris {
-    background: var(--card-bg);
-    border: 1px solid #eee;
-    border-radius: 50%;
-    min-width: 50px;
-    height: 50px;
+    gap: 8px;
     cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.fav-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+    font-size: 1.2rem;
+    transition: all 0.3s;
 }
 
-#btn-favoris:not(:disabled):hover {
-    border-color: var(--fav-color);
-    background-color: #fffdf5;
+.fav-item span {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-weight: 500;
 }
 
-#btn-favoris:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    filter: grayscale(1);
+.fav-item:hover .fav-icon {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    transform: translateY(-5px);
 }
 
-/* --- RESPONSIVE DESIGN --- */
-
-@media (max-width: 768px) {
-    #conteneur {
-        padding: 0 15px; 
-    }
-
-    #bloc-recherche {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .search-wrapper {
-        width: 100%;
-        max-width: none;
-    }
-
-    #btn-favoris {
-        width: 100%; 
-        border-radius: 10px;
-        height: 45px;
-    }
+.fav-item:hover span {
+    color: white;
 }
 
-/* Pour les très petits écrans (moins de 480px) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.5rem;
-        text-align: center;
-    }
+.add-new .fav-icon {
+    border-style: dashed;
+}
 
-    #explication {
-        font-size: 0.9rem;
-        text-align: center;
-    }
+/* Footer status */
+.status-bar {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 
-    #input-crypto {
-        font-size: 0.95rem;
-    }
+.dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
 }

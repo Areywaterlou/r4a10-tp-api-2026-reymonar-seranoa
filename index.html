@@ -1,50 +1,55 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title>CryptoTracker - CoinGecko</title>
-    
-    <link rel="stylesheet" href="styles.css" />
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoDash | Search</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
 
-    <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico" />
-  </head>
+    <div class="background-glow"></div>
 
-  <body>
-    <header>
-      <h1>CryptoTracker <span style="font-size: 0.5em;">by CoinGecko</span></h1>
-      <p id="explication">
-        Suivez le cours des crypto-monnaies en temps réel via l'API 
-        <a href="https://www.coingecko.com/" target="_blank">CoinGecko</a>.<br />
-        Saisissez le nom d'un jeton (ex: Bitcoin, Ethereum) pour voir sa valeur.
-      </p>
-    </header>
+    <main class="main-container">
+        <header>
+            <h1>Crypto<span class="green-text">Search</span></h1>
+            <p>Explorez la blockchain en temps réel.</p>
+        </header>
 
-    <main id="conteneur">
-      <section id="section-recherche">
-        <div id="bloc-recherche">
-          <div class="search-wrapper">
-            <input type="text" id="input-crypto" placeholder="Rechercher une crypto (ex: bitcoin)..." />
-            <button id="btn-lancer-recherche" type="button" class="btn_clicable" title="Lancer la recherche">
-              <img src="images/loupe.svg" alt="Rechercher" width="20" />
-            </button>
-          </div>
-          
-          <button id="btn-favoris" type="button" disabled title="Ajouter aux favoris">
-            <img src="images/etoile-vide.svg" alt="Favori" width="22" />
-          </button>
-        </div>
+        <section class="search-section">
+            <div class="search-box">
+                <div class="input-wrapper">
+                    <span class="search-icon">⚡</span>
+                    <input type="text" id="cryptoInput" placeholder="Rechercher un token (ex: BTC, SOL, ETH)..." autocomplete="off">
+                    <button type="button" class="search-btn">Analyser</button>
+                </div>
+            </div>
 
-        <div id="bloc-resultats">
-           </div>
-      </section>
+            <div class="favorites">
+                <div class="fav-item" title="Bitcoin">
+                    <div class="fav-icon">₿</div>
+                    <span>BTC</span>
+                </div>
+                <div class="fav-item" title="Ethereum">
+                    <div class="fav-icon">Ξ</div>
+                    <span>ETH</span>
+                </div>
+                <div class="fav-item" title="Solana">
+                    <div class="fav-icon">S</div>
+                    <span>SOL</span>
+                </div>
+                <div class="fav-item add-new">
+                    <div class="fav-icon">+</div>
+                    <span>Suivre</span>
+                </div>
+            </div>
+        </section>
 
-      <section id="section-favoris">
-        <h2>Mes Favoris</h2>
-        <ul id="liste-favoris">
-          </ul>
-      </section>
+        <footer class="status-bar">
+            <span class="dot"></span> Réseau opérationnel • <span class="green-text">24,432 nodes</span>
+        </footer>
     </main>
 
-    <script type="module" src="js/main.js"></script>
-  </body>
+</body>
 </html>
