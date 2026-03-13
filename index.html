@@ -1,25 +1,50 @@
-<header>
-  <h1>CryptoTracker <span style="font-size: 0.5em;">by CoinGecko</span></h1>
-  <p id="explication">
-    Suivez le cours des crypto-monnaies en temps réel via l'API 
-    <a href="https://www.coingecko.com/" target="_blank">CoinGecko</a>.<br />
-    Saisissez le nom d'un jeton (ex: Bitcoin, Ethereum) pour voir sa valeur.
-  </p>
-</header>
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>CryptoTracker - CoinGecko</title>
+    
+    <link rel="stylesheet" href="styles.css" />
 
-<main id="conteneur">
-  <section id="section-recherche">
-    <div id="bloc-recherche">
-      <div class="search-wrapper">
-        <input type="text" id="input-crypto" placeholder="Rechercher une crypto (ex: bitcoin)..." />
-        <button id="btn-lancer-recherche" type="button" class="btn_clicable">
-          <img src="images/loupe.svg" alt="Rechercher" width="20" />
-        </button>
-      </div>
-      
-      <button id="btn-favoris" type="button" disabled title="Suivre cette crypto">
-        <img src="images/etoile-vide.svg" alt="Favori" width="22" />
-      </button>
-    </div>
-    </section>
-</main>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico" />
+  </head>
+
+  <body>
+    <header>
+      <h1>CryptoTracker <span style="font-size: 0.5em;">by CoinGecko</span></h1>
+      <p id="explication">
+        Suivez le cours des crypto-monnaies en temps réel via l'API 
+        <a href="https://www.coingecko.com/" target="_blank">CoinGecko</a>.<br />
+        Saisissez le nom d'un jeton (ex: Bitcoin, Ethereum) pour voir sa valeur.
+      </p>
+    </header>
+
+    <main id="conteneur">
+      <section id="section-recherche">
+        <div id="bloc-recherche">
+          <div class="search-wrapper">
+            <input type="text" id="input-crypto" placeholder="Rechercher une crypto (ex: bitcoin)..." />
+            <button id="btn-lancer-recherche" type="button" class="btn_clicable" title="Lancer la recherche">
+              <img src="images/loupe.svg" alt="Rechercher" width="20" />
+            </button>
+          </div>
+          
+          <button id="btn-favoris" type="button" disabled title="Ajouter aux favoris">
+            <img src="images/etoile-vide.svg" alt="Favori" width="22" />
+          </button>
+        </div>
+
+        <div id="bloc-resultats">
+           </div>
+      </section>
+
+      <section id="section-favoris">
+        <h2>Mes Favoris</h2>
+        <ul id="liste-favoris">
+          </ul>
+      </section>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
