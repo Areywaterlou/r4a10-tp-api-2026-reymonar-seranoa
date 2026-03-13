@@ -3,53 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoDash | Search</title>
+    <title>CryptoTracker | Search</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="background-glow"></div>
 
     <main class="main-container">
-        <header>
-            <h1>Crypto<span class="green-text">Search</span></h1>
-            <p>Explorez la blockchain en temps réel.</p>
+        <header class="hero">
+            <h1 class="logo">Crypto<span class="green-text">Tracker</span> <span class="brand-badge">by CoinGecko</span></h1>
+            <p class="description">
+                Suivez le cours des crypto-monnaies en temps réel via l'API <span class="green-text">CoinGecko</span>.<br>
+                Saisissez le nom d'un jeton pour voir sa valeur.
+            </p>
         </header>
 
         <section class="search-section">
-            <div class="search-box">
-                <div class="input-wrapper">
-                    <span class="search-icon">⚡</span>
-                    <input type="text" id="cryptoInput" placeholder="Rechercher un token (ex: BTC, SOL, ETH)..." autocomplete="off">
-                    <button type="button" class="search-btn">Analyser</button>
+            <div class="search-group">
+                <div class="search-bar">
+                    <input type="text" id="cryptoInput" placeholder="Rechercher (ex: bitcoin, ethereum)..." autocomplete="off">
+                    <button class="icon-btn search-trigger">🔍</button>
                 </div>
+                <button class="icon-btn favorite-btn" title="Ajouter aux favoris">⭐</button>
             </div>
 
-            <div class="favorites">
-                <div class="fav-item" title="Bitcoin">
-                    <div class="fav-icon"aria-hidden="true">₿</div>
-                    <span>BTC</span>
-                </div>
-                <div class="fav-item" title="Ethereum">
-                    <div class="fav-icon" aria-hidden="true">Ξ</div>
-                    <span>ETH</span>
-                </div>
-                <div class="fav-item" title="Solana">
-                    <div class="fav-icon" aria-hidden="true">S</div>
-                    <span>SOL</span>
-                </div>
-                <div class="fav-item add-new">
-                    <div class="fav-icon" aria-hidden="true">+</div>
-                    <span>Suivre</span>
+            <div class="favorites-container">
+                <h2 class="favorites-title">Mes Favoris</h2>
+                <div id="favoritesList" class="favorites-box">
+                    <span class="empty-msg">(Aucune recherche favorite pour le moment)</span>
                 </div>
             </div>
         </section>
     </main>
+
     <footer class="status-bar">
         <span class="dot"></span> Réseau opérationnel • <span class="green-text">24,432 nodes</span>
     </footer>
 
-  <script type="module" src="./js/app.js"></script>
+    <script type="module" src="./js/app.js"></script>
 </body>
 </html>
