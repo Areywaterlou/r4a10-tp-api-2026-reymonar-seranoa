@@ -3,12 +3,23 @@
 
 /* Définition des principales couleurs */
 :root {
-  --text-color: #fafafa; /* (Texte presque blanc) */
-  --background: #34495e; /* (Fond bleu foncé) */
-  --background-button: #bebebe;
-  --main-green: rgb(26, 188, 156);
-  --active-green: rgb(20, 156, 128);
-  --almost-black: #2d2d2d;
+    /* Couleurs principales */
+    --primary-color: #8cc63f;    /* Vert CoinGecko */
+    --primary-hover: #7ab337;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    
+    /* Couleurs de texte */
+    --text-main: #2c3e50;
+    --text-muted: #7f8c8d;
+    
+    /* Éléments de design */
+    --border-radius: 50px;       /* Pour l'effet "pilule" */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+    
+    /* Favoris */
+    --fav-color: #ffc107;        /* Jaune étoile */
 }
 
 * {
@@ -16,153 +27,129 @@
 }
 
 body {
-  background-color: var(--background);
-  font: 14pt Roboto, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  width: 90%;
-  margin: 40px auto;
-}
-
-/* Paragraphes "Aucun résultat..." et "Aucune recherche..." */
-p.info-vide {
-  font-style: italic;
-}
-
-/* Partie En-tête */
-h1 {
-  text-align: center;
-  font-variant: small-caps;
-  font-size: 2.5em;
-  color: var(--main-green);
-}
-
-#explication {
-  font-size: 1.2em;
-}
-
-/* Conteneur principal */
-#conteneur {
-  display: flex;
-  flex: 1;
-  margin: 30px auto;
-}
-
-/* Section Recherche (avec résultats) */
-#section-recherche {
-  margin-top: 0;
-  flex: 1 1 auto;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #bloc-recherche {
-  display: flex;
-  margin: 0 auto;
-  min-width: 450px;
-  flex-direction: row;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    margin: 40px auto;
+    max-width: 600px;
 }
 
-#bloc-recherche > input[type="text"],
-#bloc-recherche > button {
-  display: block;
-  font-size: 1.2em;
+/* La barre de recherche (le wrapper) */
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border: 2px solid transparent; 
+    border-radius: var(--border-radius);
+    padding: 6px 20px;
+    flex-grow: 1;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
 
-#bloc-recherche > input[type="text"] {
-  color: var(--almost-black);
-  flex: 1;
-  padding: 0.7em;
-  border: 0.3em solid var(--main-green);
+/* Effet au clic dans la barre */
+.search-wrapper:focus-within {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(140, 198, 63, 0.2);
 }
 
-#bloc-recherche > button {
-  padding: 0.8em 0.8em;
-  /* Bordure invisible pour que le hover ne bouge pas le bouton */
-  border: 1px solid var(--main-green);
-
-  /* Par défaut, les boutons sont en gris
-	 (S'ils sont "clicables", ils passent en vert) */
-  background-color: var(--background-button);
+/* L'input texte */
+#input-crypto {
+    border: none;
+    outline: none;
+    padding: 12px;
+    flex-grow: 1;
+    font-size: 1.05rem;
+    background: transparent;
+    color: var(--text-main);
 }
 
-/* Apparences des boutons clicables */
-#bloc-recherche > button.btn_clicable {
-  background-color: var(--main-green);
+/* Bouton Loupe */
+#btn-lancer-recherche {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
 }
 
-#bloc-recherche > button:focus {
-  /* Pour éviter un affichage disgracieux
-		quand le bouton reste en focus */
-  outline: 0 !important;
+#btn-lancer-recherche:hover {
+    transform: scale(1.2);
+    filter: brightness(0.8);
 }
 
-#bloc-recherche > button.btn_clicable:hover {
-  cursor: pointer;
-  border: 1px solid white;
+/* Bouton Favori (Etoile) */
+#btn-favoris {
+    background: var(--card-bg);
+    border: 1px solid #eee;
+    border-radius: 50%;
+    min-width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
 
-#bloc-recherche > button.btn_clicable:active {
-  background-color: var(--active-green);
+#btn-favoris:not(:disabled):hover {
+    border-color: var(--fav-color);
+    background-color: #fffdf5;
 }
 
-/* GIF de chargement (caché par défaut) */
-#bloc-gif-attente {
-  display: none;
-  margin: 40px;
-  text-align: center;
+#btn-favoris:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
 }
 
-#bloc-resultats p.res::before {
-  /* Affichage d'une flèche devant chaque résultat
-		(Cf. https://unicode-table.com/fr/21E8/ ) */
-  content: "\21E8\00A0";
+/* --- RESPONSIVE DESIGN --- */
+
+@media (max-width: 768px) {
+    #conteneur {
+        padding: 0 15px; 
+    }
+
+    #bloc-recherche {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-wrapper {
+        width: 100%;
+        max-width: none;
+    }
+
+    #btn-favoris {
+        width: 100%; 
+        border-radius: 10px;
+        height: 45px;
+    }
 }
 
-/* Section de la barre de séparation */
-#section-separation {
-  border-left: 2px dashed var(--main-green);
-  margin: 0 20px;
-}
+/* Pour les très petits écrans (moins de 480px) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
 
-/* Section des recherches favorites */
-#section-favoris {
-  flex: 0 0 300px;
-  margin-top: 0;
-  margin-bottom: 20px;
-}
+    #explication {
+        font-size: 0.9rem;
+        text-align: center;
+    }
 
-#section-favoris h2 {
-  margin-top: 0;
-}
-
-#section-favoris p {
-  margin-bottom: 8px;
-}
-
-#liste-favoris li {
-  margin-bottom: 8px;
-  cursor: pointer;
-}
-
-#liste-favoris li span {
-  text-decoration: underline;
-}
-
-#liste-favoris li span:hover {
-  color: var(--main-green);
-}
-
-/* Media-query pour gérer l'affichage sur petit écran */
-@media (max-width: 900px) {
-  #conteneur {
-    flex-direction: column-reverse;
-  }
-
-  #section-separation {
-    border-top: 2px dashed var(--main-green);
-    margin: 0 -10px 40px -10px;
-  }
-
-  #section-favoris {
-    flex: 0;
-  }
+    #input-crypto {
+        font-size: 0.95rem;
+    }
 }
