@@ -15,42 +15,45 @@ export default class RechercheController {
 
         //ecoute du bouton de recherche
         CryptoView.btnRechercher.addEventListener('click', () => {
-            console.log("bouton cliqué")
-            this.rechercher(input.value);
+            console.log("bouton cliqué");
+            this.rechercher(CryptoView.barreRecherche.value);
         });
         //ecoute de la touche entrée
         CryptoView.barreRecherche.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.rechercher(input.value);
+                this.rechercher(CryptoView.barreRecherche.value);
             }
         });
     }
 
 
     async rechercher(saisie) {
-        urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
-        reponseRecherche = await fetch(urlRecherche);
-        donnéesCrypto = await reponseRecherche.json();
+
+        try{
+
+        const urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
+        const reponseRecherche = await fetch(urlRecherche);
+        const donnéesCrypto = await reponseRecherche.json();
         if(donnéesCrypto.coins.length === 0){
             throw new Error ("aucune crypto trouvée");
         }
         crypto = donnéesCrypto.coins[0];
 
 
-        urlRecherchePrix = `https://api.coingecko.com/api/v3/simple/price?ids=${crypto.id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`
-        reponseRecherchePrix = await fetch(urlRecherchePrix);
-        donnéesCryptoPrix = await reponseRecherche.json();
+        const urlRecherchePrix = `https://api.coingecko.com/api/v3/simple/price?ids=${crypto.id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`
+        const reponseRecherchePrix = await fetch(urlRecherchePrix);
+        const donnéesCryptoPrix = await reponseRecherche.json();
 
 
         const infosFinancieres = donnéesCryptoPrix[crypto.id];
 
         const maCrypto = new Crypto(
-            donnéesCrypto.id,
-            donnéesCrypto.name,
-            donnéesCrypto.symbol,
-            donnéesCrypto.market_cap_rank,
-            donnéesCrypto.thumb,
-            donnéesCrypto.large,
+            crypto.id,
+            crypto.name,
+            crypto.symbol,
+            crypto.market_cap_rank,
+            crypto.thumb,
+            crypto.large,
             infosFinancieres.usd,
             infosFinancieres.usd_24h_change,
             infosFinancieres.usd_24h_vol,
@@ -62,9 +65,9 @@ export default class RechercheController {
 
 
         CryptoView.afficherResultat(maCrypto);
-
+        
     } catch (erreur) {
         console.error("Un problème est survenu avec l'API :", erreur);
     }
-
+}
 }
