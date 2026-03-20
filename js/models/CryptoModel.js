@@ -1,6 +1,3 @@
-/**
- * Lien avec l'API CoinGecko
- */
 export class Crypto{
     /**
      * @type {string}
@@ -115,7 +112,7 @@ export class Crypto{
 
 
 
-    async retrieveFavIdToServer() {
+    static async retrieveFavIdToServer() {
 
         try{
             let cryptoData;
