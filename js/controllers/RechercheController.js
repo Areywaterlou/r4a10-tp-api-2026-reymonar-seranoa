@@ -15,6 +15,7 @@ export default class RechercheController {
         if (CryptoView.barreRecherche && input) {
             //ecoute du bouton de recherche
             CryptoView.btnRechercher.addEventListener('click', () => {
+                console.log("bouton cliqué")
                 this.rechercher(input.value);
             });
             //ecoute de la touche entrée
