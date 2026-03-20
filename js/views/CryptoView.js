@@ -1,5 +1,5 @@
 /**
- * Objet constant représentant la vue.
+ * contient le code qui génère le HTML
  */
 export const view = {
   
