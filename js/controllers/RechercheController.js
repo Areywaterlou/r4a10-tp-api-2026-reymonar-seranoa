@@ -1,4 +1,5 @@
 import { CryptoView } from "./RechercheView.js"
+import { Crypto } from "./CryptoModel.js";
 
 /**
  * le lien entre l'utilisateur, le modèle et la vue
@@ -41,12 +42,12 @@ export default class RechercheController {
         if(donnéesCrypto.coins.length === 0){
             throw new Error ("aucune crypto trouvée");
         }
-        crypto = donnéesCrypto.coins[0];
+        const crypto = donnéesCrypto.coins[0];
 
 
         const urlRecherchePrix = `https://api.coingecko.com/api/v3/simple/price?ids=${crypto.id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`
         const reponseRecherchePrix = await fetch(urlRecherchePrix);
-        const donnéesCryptoPrix = await reponseRecherche.json();
+        const donnéesCryptoPrix = await reponseRecherchePrix.json();
 
 
         const infosFinancieres = donnéesCryptoPrix[crypto.id];
