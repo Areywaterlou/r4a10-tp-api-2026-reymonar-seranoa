@@ -49,6 +49,7 @@ export default class ResultatController {
             );
 
             // ON AFFICHE LE RÉSULTAT GRÂCE À LA VUE DE TON POTE !
+            console.log(maCrypto);
             this.view.afficherResultat(maCrypto);
 
         } catch (erreur) {
