@@ -3,13 +3,13 @@
  */
 
 import CryptoModel from './models/CryptoModel.js';
-import CryptoView from './views/RechercheView.js';
-import CryptoController from './controllers/RechercheController.js';
+import RechercheView from './views/RechercheView.js';
+import RechercheController from './controllers/RechercheController.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const model = new CryptoModel();
-    const view = new CryptoView();
-    const app = new CryptoController(model, view);
+    const view = new RechercheView();
+    const app = new RechercheController(model, view);
 
     app.init();
 });
