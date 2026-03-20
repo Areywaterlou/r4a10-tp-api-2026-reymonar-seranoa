@@ -75,22 +75,27 @@ export class Crypto{
     isFav(){
         return this.#fav;
     }
-
-    saveFavToServer() {
-    let editableButtonsObj = {};
-    for (let idBtn of this.getIdsEditablesButtons()) {
-      editableButtonsObj[idBtn] = this.getValueEditableButton(idBtn);
+    setFav(fav){
+        this.#fav = fav;
     }
 
-    let memory = this.#memory;
+    saveFavToServer() {
 
-    let calculatorState = { 
-      editableButtons: editableButtonsObj, 
-      memory: memory 
-    };
-    let jsonString = JSON.stringify(calculatorState);
 
-    fetch("api/save-calculator-state.php", {
+    if (!this.#fav){
+        return null;
+    }
+    
+    let cryptoData = { 
+            id: this.#id,
+            name: this.#name,
+            symbol: this.#symbol,
+            is_favorite: this.#fav
+        };
+        
+    let jsonString = JSON.stringify(cryptoData);
+
+    fetch("api/save-fav-state.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -99,7 +104,7 @@ export class Crypto{
     })
     .then((response) => {
         if (!response.ok) {
-            throw new Error("Erreur HTTP " + response.status);
+            throw new Error("la crypto n'a pas été trouver :  " + response.status);
         }
     })
     .catch((error) => {
@@ -107,4 +112,36 @@ export class Crypto{
     });
   }
 
+
+
+
+    async retrieveFavIdToServer() {
+
+        try{
+            let cryptoData;
+                
+
+            let reponse = await fetch("api/get-fav-state.php");
+            
+            if (!reponse.ok){
+                throw new Error("Erreur pour récuperer les favoris");
+            }
+
+            cryptoData = await reponse.json();
+
+            return cryptoData;
+
+        }
+        
+    catch(error){
+        throw new Error("erreur pour récuperer les favoris : " + error);
+    }
+
+
+    
+
+  }
+
 }
+
+
