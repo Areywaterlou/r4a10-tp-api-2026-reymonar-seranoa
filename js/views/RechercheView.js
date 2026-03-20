@@ -15,7 +15,14 @@ export default class RechercheView {
     getSaisie() {
         return this.barreRecherche.value;
     }
-    
+
+    /**
+     * Affiche un message d'erreur si besoin
+     */
+    afficherMessage(message) {
+        alert(message);
+    }
+
     /**
      * Affiche la liste des favoris sur l'accueil
      * @param {Array} favoris - Liste d'objets Crypto mis en favoris
