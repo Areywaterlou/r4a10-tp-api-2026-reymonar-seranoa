@@ -30,11 +30,12 @@ export default class RechercheController {
         }
     }
 
+
     async rechercher(saisie) {
         urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
         reponseRecherche = await fetch(urlRecherche);
         donnéesCrypto = await reponseRecherche.json();
-        if(donnéesCrypto.coins.lenght() === 0){
+        if(donnéesCrypto.coins.length === 0){
             throw new Error ("aucune crypto trouvée");
         }
         crypto = donnéesCrypto.coins[0];
