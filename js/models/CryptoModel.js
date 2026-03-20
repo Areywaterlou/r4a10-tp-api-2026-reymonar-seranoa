@@ -54,7 +54,7 @@ export class Crypto{
         this.#usd_market_cap = usd_market_cap;
     }
 
-    getId() {return this.#id;}
+    get id() {return this.#id;}
     getName() {return this.#name;}
     getSymbol() {return this.#symbol;}
     getMarketCapRank() {return this.#market_cap_rank;}

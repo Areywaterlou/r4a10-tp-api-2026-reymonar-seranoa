@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Token | CryptoTracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="results-page">
+
+    <nav class="navbar">
+        <a href="index.html" class="back-btn">← Retour à la recherche</a>
+        <div class="nav-logo">Crypto<span class="green-text">Tracker</span></div>
+        <div class="nav-search">
+            <input type="text" placeholder="Nouvelle recherche...">
+        </div>
+    </nav>
+
+    <main class="result-container">
+        <section class="coin-header">
+            <div class="coin-main-info">
+                <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC" class="main-logo">
+                <div>
+                    <h1>Bitcoin <span class="symbol">BTC</span></h1>
+                    <span class="badge">Rang #1</span>
+                </div>
+            </div>
+            <div class="coin-price-block">
+                <h2 class="price-val">63,450.21 €</h2>
+                <span class="change up">+2.15% (24h)</span>
+            </div>
+        </section>
+
+        <section class="data-grid">
+            <div class="data-card">
+                <label>Capitalisation Boursière</label>
+                <p>1,245,678,901,234 €</p>
+            </div>
+            <div class="data-card">
+                <label>Volume 24h</label>
+                <p>35,120,450,000 €</p>
+            </div>
+            <div class="data-card">
+                <label>Offre en circulation</label>
+                <p>19,650,000 BTC</p>
+            </div>
+            <div class="data-card highlight">
+                <label>Plus haut historique (ATH)</label>
+                <p class="green-text">69,045.00 €</p>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-placeholder">
+                <div class="chart-info">Graphique en temps réel</div>
+                <div class="fake-chart"></div> 
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="./js/resultat.js"></script>
+</body>
+</html>
