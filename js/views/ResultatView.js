@@ -1,4 +1,4 @@
-import Crypto from "../models/CryptoModel";
+import Crypto from "../models/CryptoModel.js";
 /**
  * Gère l'affichage des détails d'une crypto (Manipulation du HTML)
  */
