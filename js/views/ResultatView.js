@@ -1,3 +1,4 @@
+import Crypto from "../models/CryptoModel";
 /**
  * Gère l'affichage des détails d'une crypto (Manipulation du HTML)
  */

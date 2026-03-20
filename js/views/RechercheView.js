@@ -27,17 +27,16 @@ export default class RechercheView {
      * Affiche la liste des favoris sur l'accueil
      * @param {Array} favoris - Liste d'objets Crypto mis en favoris
      */
-    afficherFavoris(favoris) {
+// On ajoute un 2ème paramètre : l'action à faire quand on clique
+    afficherFavoris(favoris, actionClicFavori) {
         if (!this.favoriteContener) return;
+        this.favoriteContener.innerHTML = "";
 
         if (favoris.length === 0) {
             this.favoriteContener.innerHTML = '<span class="empty-msg">(Aucune recherche favorite pour le moment)</span>';
             return;
         }
 
-        this.favoriteContener.innerHTML = "";
-
-        // On génère le HTML pour chaque favori
         favoris.forEach(crypto => {
             const favElement = document.createElement('div');
             favElement.classList.add('fav-badge');
@@ -45,8 +44,11 @@ export default class RechercheView {
                 <img src="${crypto.getThumb()}" alt="${crypto.getName()}">
                 <span>${crypto.getSymbol()}</span>
             `;
-            // rends le favori clicable
-            favElement.onclick = () => window.location.href = `resultat.html?id=${crypto.id}`;
+            
+            // LA MAGIE EST LÀ : La vue ne redirige plus ! Elle lance juste l'action du contrôleur avec l'ID.
+            favElement.onclick = () => {
+                actionClicFavori(crypto.getId());
+            };
             
             this.favoriteContener.appendChild(favElement);
         });
