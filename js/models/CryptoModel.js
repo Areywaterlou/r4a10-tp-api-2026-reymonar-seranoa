@@ -1,6 +1,3 @@
-/**
- * Lien avec l'API CoinGecko
- */
 export class Crypto{
     /**
      * @type {string}
@@ -62,7 +59,7 @@ export class Crypto{
 
     }
 
-    get id() {return this.#id;}
+    getId() {return this.#id;}
     getName() {return this.#name;}
     getSymbol() {return this.#symbol;}
     getMarketCapRank() {return this.#market_cap_rank;}
@@ -115,7 +112,7 @@ export class Crypto{
 
 
 
-    async retrieveFavIdToServer() {
+    static async retrieveFavIdToServer() {
 
         try{
             let cryptoData;
