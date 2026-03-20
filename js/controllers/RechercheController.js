@@ -1,10 +1,14 @@
-import { CryptoModel } from "./CryptoModel"
-import { CryptoView } from "./RechercheView"
+import { CryptoView } from "./RechercheView.js"
 
 /**
  * le lien entre l'utilisateur, le modèle et la vue
  */
 export default class RechercheController {
+
+    constructor(model, view) {
+        this.model = model;
+        this.view = view;
+    }
 
     init(){
         this.ecouteEvent();
@@ -14,11 +18,11 @@ export default class RechercheController {
 
         if (CryptoView.barreRecherche && input) {
             //ecoute du bouton de recherche
-            CryptoView.btnRechercher.addEventListener('click', () => {
+            this.view.barreRecherche.addEventListener('click', () => {
                 this.rechercher(input.value);
             });
             //ecoute de la touche entrée
-            CryptoView.barreRecherche.addEventListener('keypress', (e) => {
+            this.view.barreRecherche.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     this.rechercher(input.value);
                 }
