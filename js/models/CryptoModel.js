@@ -1,3 +1,6 @@
+/**
+ * Lien avec l'API CoinGecko
+ */
 export class Crypto{
     /**
      * @type {string}
