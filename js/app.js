@@ -3,8 +3,8 @@
  */
 
 import CryptoModel from './models/CryptoModel.js';
-import CryptoView from './views/CryptoView.js';
-import CryptoController from './controllers/CryptoController.js';
+import CryptoView from './views/RechercheView.js';
+import CryptoController from './controllers/RechercheController.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const model = new CryptoModel();
