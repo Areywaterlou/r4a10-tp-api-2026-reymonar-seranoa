@@ -1,4 +1,3 @@
-import { CryptoView } from "./RechercheView.js"
 import { Crypto } from "./CryptoModel.js";
 
 /**
@@ -19,14 +18,14 @@ export default class RechercheController {
 
 
         //ecoute du bouton de recherche
-        CryptoView.btnRechercher.addEventListener('click', () => {
+        this.view.btnRechercher.addEventListener('click', () => {
             console.log("bouton cliqué");
-            this.rechercher(CryptoView.barreRecherche.value);
+            this.rechercher(this.view.getSaisie());
         });
         //ecoute de la touche entrée
-        CryptoView.barreRecherche.addEventListener('keypress', (e) => {
+        this.view.barreRecherche.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.rechercher(CryptoView.barreRecherche.value);
+                this.rechercher(this.view.getSaisie());
             }
         });
     }
@@ -69,7 +68,7 @@ export default class RechercheController {
         console.log("Voici la crypyo :", maCrypto);
 
 
-        CryptoView.afficherResultat(maCrypto);
+        this.view.afficherResultat(maCrypto);
         
     } catch (erreur) {
         console.error("Un problème est survenu avec l'API :", erreur);
