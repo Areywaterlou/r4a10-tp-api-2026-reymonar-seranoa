@@ -54,7 +54,7 @@ export default class RechercheController {
             infosFinancieres.usd_24h_change,
             infosFinancieres.usd_24h_vol,
             infosFinancieres.usd_market_cap,
-            false // fav à false par défaut
+            false
         );
 
         console.log("Voici la crypyo :", maCrypto);
