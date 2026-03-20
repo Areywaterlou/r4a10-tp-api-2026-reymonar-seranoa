@@ -59,7 +59,7 @@ export class Crypto{
 
     }
 
-    get id() {return this.#id;}
+    getId() {return this.#id;}
     getName() {return this.#name;}
     getSymbol() {return this.#symbol;}
     getMarketCapRank() {return this.#market_cap_rank;}
