@@ -14,7 +14,7 @@ export default class ResultatView {
     /**
      * Remplit la page avec les données de l'objet Crypto
      */
-    afficherDonnees(crypto) {
+    afficherResultat(crypto) {
         ththis.titreNom.innerHTML = `${crypto.getName()} <span class="symbol">${crypto.getSymbol().toUpperCase()}</span>`;
         this.badgeRang.textContent = `Rang #${crypto.getMarketCapRank()}`;
 
