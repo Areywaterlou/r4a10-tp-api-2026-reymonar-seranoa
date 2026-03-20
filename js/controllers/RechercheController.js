@@ -1,10 +1,14 @@
-import { CryptoModel } from "./CryptoModel"
-import { CryptoView } from "./RechercheView"
+import { CryptoView } from "./RechercheView.js"
 
 /**
  * le lien entre l'utilisateur, le modèle et la vue
  */
 export default class RechercheController {
+
+    constructor(model, view) {
+        this.model = model;
+        this.view = view;
+    }
 
     init(){
         this.ecouteEvent();

@@ -1,4 +1,4 @@
-export class Crypto{
+export default class Crypto{
     /**
      * @type {string}
      */
