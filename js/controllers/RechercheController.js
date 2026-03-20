@@ -12,26 +12,26 @@ export default class RechercheController {
 
     ecouteEvent() {
 
-        if (CryptoView.barreRecherche && input) {
-            //ecoute du bouton de recherche
-            CryptoView.btnRechercher.addEventListener('click', () => {
-                console.log("bouton cliqué")
+
+        //ecoute du bouton de recherche
+        CryptoView.btnRechercher.addEventListener('click', () => {
+            console.log("bouton cliqué")
+            this.rechercher(input.value);
+        });
+        //ecoute de la touche entrée
+        CryptoView.barreRecherche.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
                 this.rechercher(input.value);
-            });
-            //ecoute de la touche entrée
-            CryptoView.barreRecherche.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.rechercher(input.value);
-                }
-            });
-        }
+            }
+        });
     }
+
 
     async rechercher(saisie) {
         urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
         reponseRecherche = await fetch(urlRecherche);
         donnéesCrypto = await reponseRecherche.json();
-        if(donnéesCrypto.coins.lenght() === 0){
+        if(donnéesCrypto.coins.length === 0){
             throw new Error ("aucune crypto trouvée");
         }
         crypto = donnéesCrypto.coins[0];
