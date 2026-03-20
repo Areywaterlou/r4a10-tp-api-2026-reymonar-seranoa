@@ -24,9 +24,9 @@
             <div class="search-group">
                 <div class="search-bar">
                     <input type="text" id="cryptoInput" placeholder="Rechercher (ex: bitcoin, ethereum)..." autocomplete="off">
-                    <button class="icon-btn search-trigger">🔍</button>
+                    <button class="icon-btn search-trigger", id="searchButton">🔍</button>
                 </div>
-                <button class="icon-btn favorite-btn" title="Ajouter aux favoris">⭐</button>
+                <button id="favoriteButton"class="icon-btn favorite-btn" title="Ajouter aux favoris">⭐</button>
             </div>
 
             <div class="favorites-container">
@@ -39,7 +39,7 @@
     </main>
 
     <footer class="status-bar">
-        <span class="dot"></span> Réseau opérationnel • <span class="green-text">24,432 nodes</span>
+        <span class="dot"></span> Réseau opérationnel • <span class="green-text"></span>
     </footer>
 
     <script type="module" src="./js/app.js"></script>
