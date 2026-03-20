@@ -17,7 +17,7 @@ export default class ResultatController {
         const cryptoObjet = await this.manager.obtenirDetailsComplets(idCrypto);
 
         if (cryptoObjet) {
-            this.view.afficherDonnees(cryptoObjet);
+            this.view.afficherResultat(cryptoObjet);
         } else {
             alert("Impossible de charger les infos de " + idCrypto);
         }
