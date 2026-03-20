@@ -15,29 +15,38 @@ export default class ResultatView {
 
     /**
      * Remplit la page avec les données de l'objet Crypto
+     * @param {Crypto} crypto - L'instance du modèle Crypto
      */
     afficherResultat(crypto) {
-        // Mise à jour de l'image et du texte
         this.logo.src = crypto.getLarge();
-        this.titreNom.innerHTML = `${crypto.getName()} <span class="symbol">${crypto.getSymbol().toUpperCase()}</span>`;
-        this.badgeRang.textContent = `Rang #${crypto.getMarketCapRank()}`;
+        this.logo.alt = crypto.getName();
+        this.titreNom.innerHTML = `${crypto.getName()} <span class="symbol">${crypto.getSymbol().toUpperCase()}</span>`; //
+        this.badgeRang.textContent = `Rang #${crypto.getMarketCapRank()}`; //
 
-        // Formatage du prix
-        const prixUSD = crypto.getUsd();
-        this.prixAffichage.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(prixUSD);
+        const prixUSD = crypto.getUsd(); //
+        this.prixAffichage.textContent = new Intl.NumberFormat('en-US', { 
+            style: 'currency', 
+            currency: 'USD' 
+        }).format(prixUSD);
 
-        // Formatage du changement 24h
-        const changement = crypto.getUsd24hChange();
+        const changement = crypto.getUsd24hChange(); //
         this.changement24h.textContent = `${changement >= 0 ? '+' : ''}${changement.toFixed(2)}% (24h)`;
+        
         this.changement24h.className = `change ${changement >= 0 ? 'up' : 'down'}`;
 
-        // Remplissage de la grille de données
-        this.valeursCartes[0].textContent = this.formaterGrandNombre(crypto.getUsdMarketCap()) + " $";
-        this.valeursCartes[1].textContent = this.formaterGrandNombre(crypto.getUsd24hVol()) + " $";
+        // Market Cap
+        this.valeursCartes[0].textContent = this.formaterGrandNombre(crypto.getUsdMarketCap()) + " $"; //
+        // Volume 24h
+        this.valeursCartes[1].textContent = this.formaterGrandNombre(crypto.getUsd24hVol()) + " $"; //
+        
+        // on laisse des placeholders ou des flux statiques.
         this.valeursCartes[2].textContent = "Flux en direct";
         this.valeursCartes[3].textContent = "Donnée non dispo"; 
     }
 
+    /**
+     * Utilitaire de formatage pour la lisibilité (ex: 1 234 567)
+     */
     formaterGrandNombre(num) {
         return new Intl.NumberFormat('fr-FR').format(num);
     }
