@@ -13,4 +13,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = new RechercheController(view); 
     
     app.init();
+    console.log("après le init");
 });
