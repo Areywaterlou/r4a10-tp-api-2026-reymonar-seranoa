@@ -1,16 +1,15 @@
-import { Crypto } from "./CryptoModel.js";
-
+import Crypto from "../models/CryptoModel.js";
 /**
  * le lien entre l'utilisateur, le modèle et la vue
  */
 export default class RechercheController {
 
-    constructor(model, view) {
-        this.model = model;
+    constructor(view) {
         this.view = view;
     }
 
     init(){
+
         this.ecouteEvent();
     }
 
