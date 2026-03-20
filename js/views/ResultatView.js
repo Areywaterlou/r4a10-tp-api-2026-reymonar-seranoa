@@ -1,53 +1,58 @@
-/**
- * Gère l'affichage des détails d'une crypto (Manipulation du HTML)
- */
-export default class ResultatView {
-    constructor() {
-        this.logo = document.querySelector(".main-logo");
-        this.titreNom = document.querySelector(".coin-main-info h1");
-        this.badgeRang = document.querySelector(".badge");
-        this.prixAffichage = document.querySelector(".price-val");
-        this.changement24h = document.querySelector(".change");
-        
-        // Cible les <p> dans les cartes de données (Cap, Volume, etc.)
-        this.valeursCartes = document.querySelectorAll(".data-card p");
+import { Crypto } from "../models/CryptoModel.js";
+
+export default class ResultatController {
+    constructor(view) {
+        this.view = view;
     }
 
-    /**
-     * Remplit la page avec les données de l'objet Crypto
-     * @param {Crypto} crypto - L'instance du modèle Crypto
-     */
-    afficherResultat(crypto) {
-        this.logo.src = crypto.getLarge();
-        this.logo.alt = crypto.getName();
-        this.titreNom.innerHTML = `${crypto.getName()} <span class="symbol">${crypto.getSymbol().toUpperCase()}</span>`; //
-        this.badgeRang.textContent = `Rang #${crypto.getMarketCapRank()}`; //
+    init() {
+        // 1. Lire l'URL pour trouver l'ID (ex: ?id=bitcoin)
+        const parametresUrl = new URLSearchParams(window.location.search);
+        const cryptoId = parametresUrl.get("id");
 
-        const prixUSD = crypto.getUsd(); //
-        this.prixAffichage.textContent = new Intl.NumberFormat('en-US', { 
-            style: 'currency', 
-            currency: 'USD' 
-        }).format(prixUSD);
-
-        const changement = crypto.getUsd24hChange(); //
-        this.changement24h.textContent = `${changement >= 0 ? '+' : ''}${changement.toFixed(2)}% (24h)`;
-        
-        this.changement24h.className = `change ${changement >= 0 ? 'up' : 'down'}`;
-
-        // Market Cap
-        this.valeursCartes[0].textContent = this.formaterGrandNombre(crypto.getUsdMarketCap()) + " $"; //
-        // Volume 24h
-        this.valeursCartes[1].textContent = this.formaterGrandNombre(crypto.getUsd24hVol()) + " $"; //
-        
-        // on laisse des placeholders ou des flux statiques.
-        this.valeursCartes[2].textContent = "Flux en direct";
-        this.valeursCartes[3].textContent = "Donnée non dispo"; 
+        if (cryptoId) {
+            // 2. Si on a un ID, on lance la recherche des détails !
+            this.chargerDetailsCrypto(cryptoId);
+        } else {
+            console.error("Aucun ID de crypto fourni dans l'URL");
+        }
     }
 
-    /**
-     * Utilitaire de formatage pour la lisibilité (ex: 1 234 567)
-     */
-    formaterGrandNombre(num) {
-        return new Intl.NumberFormat('fr-FR').format(num);
+    async chargerDetailsCrypto(id) {
+        try {
+            // Ici, on fait les DEUX requêtes (search pour le logo/nom, et price pour l'argent)
+            // Car on a besoin de tout pour remplir la ResultatView de ton pote !
+            
+            const urlBase = `https://api.coingecko.com/api/v3/search?query=${id}`;
+            const repBase = await fetch(urlBase);
+            const dataBase = await repBase.json();
+            const infosBase = dataBase.coins[0];
+
+            const urlPrix = `https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`;
+            const repPrix = await fetch(urlPrix);
+            const dataPrix = await repPrix.json();
+            const infosFinancieres = dataPrix[id];
+
+            // On fabrique l'objet complet
+            const maCrypto = new Crypto(
+                infosBase.id,
+                infosBase.name,
+                infosBase.symbol,
+                infosBase.market_cap_rank,
+                infosBase.thumb,
+                infosBase.large,
+                infosFinancieres.usd,
+                infosFinancieres.usd_24h_change,
+                infosFinancieres.usd_24h_vol,
+                infosFinancieres.usd_market_cap,
+                false
+            );
+
+            // ON AFFICHE LE RÉSULTAT GRÂCE À LA VUE DE TON POTE !
+            this.view.afficherResultat(maCrypto);
+
+        } catch (erreur) {
+            console.error("Erreur lors du chargement des détails :", erreur);
+        }
     }
 }

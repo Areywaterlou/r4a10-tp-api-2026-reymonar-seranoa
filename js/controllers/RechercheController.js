@@ -30,47 +30,28 @@ export default class RechercheController {
     }
 
 
-    async rechercher(saisie) {
+async rechercher(saisie) {
+        try {
+            const urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
+            const reponseRecherche = await fetch(urlRecherche);
+            const donneesCrypto = await reponseRecherche.json();
+            
+            if (donneesCrypto.coins.length === 0) {
+                // On utilise la méthode de la vue de ton pote pour afficher l'erreur !
+                this.view.afficherMessage("Aucune crypto trouvée pour cette recherche.");
+                return; // On arrête tout
+            }
+            
+            // On récupère le bon ID officiel (ex: "bitcoin")
+            const idTrouve = donneesCrypto.coins[0].id; 
 
-        try{
+            console.log("Crypto trouvée, redirection vers : resultat.html?id=" + idTrouve);
 
-        const urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
-        const reponseRecherche = await fetch(urlRecherche);
-        const donnéesCrypto = await reponseRecherche.json();
-        if(donnéesCrypto.coins.length === 0){
-            throw new Error ("aucune crypto trouvée");
+            // REDIRECTION VERS LA PAGE 2
+            window.location.href = `resultat.html?id=${idTrouve}`;
+            
+        } catch (erreur) {
+            console.error("Un problème est survenu avec l'API :", erreur);
         }
-        const crypto = donnéesCrypto.coins[0];
-
-
-        const urlRecherchePrix = `https://api.coingecko.com/api/v3/simple/price?ids=${crypto.id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`
-        const reponseRecherchePrix = await fetch(urlRecherchePrix);
-        const donnéesCryptoPrix = await reponseRecherchePrix.json();
-
-
-        const infosFinancieres = donnéesCryptoPrix[crypto.id];
-
-        const maCrypto = new Crypto(
-            crypto.id,
-            crypto.name,
-            crypto.symbol,
-            crypto.market_cap_rank,
-            crypto.thumb,
-            crypto.large,
-            infosFinancieres.usd,
-            infosFinancieres.usd_24h_change,
-            infosFinancieres.usd_24h_vol,
-            infosFinancieres.usd_market_cap,
-            false
-        );
-
-        console.log("Voici la crypyo :", maCrypto);
-
-
-        this.view.afficherResultat(maCrypto);
-        
-    } catch (erreur) {
-        console.error("Un problème est survenu avec l'API :", erreur);
     }
-}
 }
