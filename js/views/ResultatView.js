@@ -145,7 +145,7 @@ export default class ResultatView {
 
         const favRow = document.createElement('div');
         favRow.classList.add('spotify-item');
-
+        
         const prix = cryptoData.price || 0;
         const nbDec = prix < 1 ? 6 : 2;
         const formattedPrice = new Intl.NumberFormat('en-US', { 
@@ -153,14 +153,13 @@ export default class ResultatView {
             currency: 'USD',
             maximumFractionDigits: nbDec 
         }).format(prix);
-            
-        
+
         favRow.innerHTML = `
             <div class="spot-left">
                 <img src="${cryptoData.thumb}" alt="${cryptoData.name}">
                 <div class="spot-info">
                     <span class="spot-name">${cryptoData.name}</span>
-                    <span class="spot-symbol">${cryptoData.symbol.toUpperCase()}</span>
+                    <span class="spot-symbol">${cryptoData.symbol}</span>
                 </div>
             </div>
             <div class="spot-right">

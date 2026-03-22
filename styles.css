@@ -578,53 +578,107 @@ input::placeholder {
     display: block;
     margin: 20px auto;
 }
-/* --- STYLE LISTE FAVORIS (SPOTIFY LOOK) --- */
 
-/* Le container force l'alignement en colonne */
+/* --- SECTION FAVORIS VERSION LISTE --- */
+
+.favorites-full-width {
+    width: 100%;
+    max-width: 1000px; /* S'aligne avec le reste du contenu */
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.favorites-title {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.favorites-title::before {
+    content: "";
+    width: 4px;
+    height: 24px;
+    background: var(--green-accent);
+    border-radius: 2px;
+}
+
 #favoritesList {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    margin-top: 20px;
+    gap: 10px; /* Espace entre les lignes */
 }
 
-/* On remplace le look "badge" par un look "ligne" */
-.fav-badge {
-    display: flex !important; /* Force le flex */
+/* Style de la ligne (Spotify Look) */
+.spotify-item {
+    display: flex;
     align-items: center;
-    justify-content: space-between; /* Nom à gauche, Prix à droite */
-    background: rgba(255, 255, 255, 0.05);
+    justify-content: space-between;
+    background: var(--card-color);
     padding: 12px 20px;
     border-radius: 12px;
     border: 1px solid var(--border-soft);
     transition: all 0.2s ease;
-    width: 100%;
-    box-sizing: border-box;
+    cursor: pointer;
 }
 
-.fav-badge:hover {
-    background: rgba(130, 204, 30, 0.1);
+.spotify-item:hover {
+    background: rgba(255, 255, 255, 0.05);
     border-color: var(--green-accent);
-    transform: translateX(5px);
+    transform: translateX(8px); /* Petit décalage au survol */
 }
 
-/* Image et texte à gauche */
-.fav-badge .left-part {
+.spot-left {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.fav-badge img {
-    width: 32px;
-    height: 32px;
+.spot-left img {
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
-/* Le prix à droite en vert néon */
-.fav-price-list {
-    color: var(--green-accent);
+.spot-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.spot-name {
+    font-weight: 600;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.spot-symbol {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.spot-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.spot-price {
     font-family: 'JetBrains Mono', monospace;
+    color: var(--green-accent);
     font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.spot-arrow {
+    color: #444;
+    font-size: 1.2rem;
+}
+
+.spotify-item:hover .spot-arrow {
+    color: var(--green-accent);
 }
