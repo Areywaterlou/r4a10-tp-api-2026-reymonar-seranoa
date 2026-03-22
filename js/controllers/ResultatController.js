@@ -7,7 +7,7 @@ export default class ResultatController {
 
     async init() {
         const params = new URLSearchParams(window.location.search);
-        const id = params.get('id'); // On récupère l'id depuis l'URL
+        const id = params.get('id'); 
 
         if (id) {
             this.chargerDonnees(id);
@@ -16,15 +16,19 @@ export default class ResultatController {
 
     async chargerDonnees(id) {
         try {
-
+            // 1. Récupérer les infos de base + suggestions via Search
             const repInfo = await fetch(`https://api.coingecko.com/api/v3/search?query=${id}`);
             const dataInfo = await repInfo.json();
+            
+            // La crypto principale
             const base = dataInfo.coins.find(c => c.id === id) || dataInfo.coins[0];
             
-            const suggerées = dataInfo.coins
-                .filter(c => c.id !== id) // On enlève la crypto actuelle
-                .slice(0, 5); // nb de cryptos supplémentaires
+            // Les suggestions (on filtre pour enlever la crypto actuelle de la liste)
+            const suggerees = dataInfo.coins
+                .filter(c => c.id !== id) 
+                .slice(0, 5); 
 
+            // 2. Récupérer les prix réels
             const repPrix = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`);
             const dataPrix = await repPrix.json();
             const prix = dataPrix[id];
@@ -43,12 +47,12 @@ export default class ResultatController {
                 false
             );
 
-            // On envoie à la vue
+            // 4. Envoyer tout à la vue
             this.view.afficherResultat(maCrypto);
-            this.view.afficherSuggestions(suggerées);
+            this.view.afficherSuggestions(suggerees);
 
         } catch (error) {
-            console.error("Erreur de chargement :", error);
+            console.error("Erreur de chargement des données :", error);
         }
     }
 }
