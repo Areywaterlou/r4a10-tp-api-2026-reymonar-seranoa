@@ -10,6 +10,9 @@ export default class ResultatView {
         this.badgeRang = document.querySelector(".badge");
         this.prixAffichage = document.querySelector(".price-val");
         this.changement24h = document.querySelector(".change");
+        this.btnFavori = document.getElementById("favoriteButton");
+        this.nomSimilaire = document.getElementById("currentCoinName");
+        this.listeSimilaire = document.getElementById("similarCoinsList");
         
         // Cible les <p> dans les cartes de données (Cap, Volume, etc.)
         this.valeursCartes = document.querySelectorAll(".data-card p");
@@ -70,6 +73,27 @@ export default class ResultatView {
             console.error("Erreur lors de l'injection des données dans la vue :", error);
         }
     }
+    /**
+     * Méthode pour afficher les cryptos similaires
+     * @param {*} liste 
+     * @returns 
+     */
+    afficherSuggestions(liste) {
+    if (!this.listeSimilaire) return;
+    this.listeSimilaire.innerHTML = ""; // On vide
+
+    liste.forEach(coin => {
+        const div = document.createElement("div");
+        div.classList.add("fav-badge");
+        div.innerHTML = `
+            <img src="${coin.thumb}" alt="${coin.name}">
+            <span>${coin.symbol}</span>
+        `;
+        // Au clic, on change de page pour voir cette crypto
+        div.onclick = () => window.location.href = `resultat.html?id=${coin.id}`;
+        this.listeSimilaire.appendChild(div);
+    });
+}
 
     formaterNombre(num) {
         if (!num || isNaN(num)) return "0";

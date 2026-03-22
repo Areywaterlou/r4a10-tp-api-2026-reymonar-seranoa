@@ -26,6 +26,9 @@
                     <span class="badge">Rang #--</span>
                 </div>
             </div>
+            <div>
+                <button id="favoriteButton"class="icon-btn favorite-btn" title="Ajouter aux favoris">⭐</button>
+            </div>
             <div class="coin-price-block">
                 <h2 class="price-val">--.--</h2>
                 <span class="change">--% (24h)</span>
@@ -52,15 +55,12 @@
         </section>
 
         <section class="chart-section">
-            <div class="chart-placeholder">
-                <div class="chart-info">
-                    <h3>Analyse Graphique</h3>
-                    <p>Visualisation des tendances sur 7 jours</p>
-                </div>
-                <div class="mock-chart">
-                    <div class="line"></div>
-                </div>
+            <div class="chart-info">
+                <h3>Cryptos similaires</h3>
+                <p>Découvrez d'autres jetons proches de <span id="currentCoinName" class="green-text">...</span></p>
             </div>
+            <div id="similarCoinsList" class="similar-box">
+                </div>
         </section>
     </main>
 

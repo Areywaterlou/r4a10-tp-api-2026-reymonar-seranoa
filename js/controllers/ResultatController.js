@@ -20,7 +20,10 @@ export default class ResultatController {
             const repInfo = await fetch(`https://api.coingecko.com/api/v3/search?query=${id}`);
             const dataInfo = await repInfo.json();
             const base = dataInfo.coins.find(c => c.id === id) || dataInfo.coins[0];
-
+            
+            const suggerées = dataInfo.coins
+                .filter(c => c.id !== id) // On enlève la crypto actuelle
+                .slice(0, 5); // nb de cryptos supplémentaires
 
             const repPrix = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`);
             const dataPrix = await repPrix.json();
@@ -42,6 +45,7 @@ export default class ResultatController {
 
             // On envoie à la vue
             this.view.afficherResultat(maCrypto);
+            this.view.afficherSuggestions(suggerées);
 
         } catch (error) {
             console.error("Erreur de chargement :", error);
