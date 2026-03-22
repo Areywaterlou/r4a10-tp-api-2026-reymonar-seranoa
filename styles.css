@@ -315,3 +315,17 @@ input::placeholder {
 }
 .fav-badge:hover { background: rgba(130, 204, 30, 0.2); }
 .fav-badge img { width: 20px; margin-right: 8px; }
+
+/* Pour que le SVG reste petit dans le bouton */
+.fav-icon-svg {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.loader-gif {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 20px auto; /* Centre le GIF horizontalement */
+}

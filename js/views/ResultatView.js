@@ -113,17 +113,19 @@ export default class ResultatView {
         if (!num || isNaN(num)) return "0";
         return new Intl.NumberFormat('en-US').format(Math.floor(num));
     }
+    
     /**
-     * Change l'apparence de l'étoile selon l'état favori
+     * Change l'apparence de l'étoile selon l'état favori en utilisant des SVG
      * @param {boolean} estFavori 
      */
     majBoutonFavori(estFavori) {
         if (!this.btnFavori) return;
+
+        const cheminSVG = estFavori ? "images/etoile-pleine.svg" : "images/etoile-vide.svg";
+        const texteAlt = estFavori ? "Retirer des favoris" : "Ajouter aux favoris";
+
+        this.btnFavori.innerHTML = `<img src="${cheminSVG}" alt="${texteAlt}" class="fav-icon-svg">`;
         
-        // On change le caractère de l'étoile
-        this.btnFavori.textContent = estFavori ? "⭐" : "☆";
-        
-        // On peut aussi ajouter une classe CSS si tu veux changer la couleur en jaune
         if (estFavori) {
             this.btnFavori.classList.add("active");
         } else {

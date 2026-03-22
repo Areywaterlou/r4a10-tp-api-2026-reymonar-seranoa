@@ -61,6 +61,8 @@ export default class ResultatController {
 
                 this.view.afficherResultat(maCrypto);
                 this.view.afficherSuggestions(suggerees);
+
+                this.view.majBoutonFavori(false);
                 
                 // --- Gestion du bouton favori ---
                 this.view.btnFavori.onclick = () => {
