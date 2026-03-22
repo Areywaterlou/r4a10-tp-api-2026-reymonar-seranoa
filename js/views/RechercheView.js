@@ -24,33 +24,30 @@ export default class RechercheView {
     }
 
     /**
-     * Affiche la liste des favoris sur l'accueil
-     * @param {Array} favoris - Liste d'objets Crypto mis en favoris
-     */
-// On ajoute un 2ème paramètre : l'action à faire quand on clique
-    afficherFavoris(favoris, actionClicFavori) {
-        if (!this.favoriteContener) return;
-        this.favoriteContener.innerHTML = "";
+ * Affiche le favori stocké dans le JSON
+ * @param {Object} cryptoData - L'objet récupéré du serveur
+ * @param {Function} actionClic - La redirection à effectuer au clic
+ */
+afficherFavoris(cryptoData, actionClic) {
+    const container = document.getElementById("favoritesList");
+    if (!container) return;
 
-        if (favoris.length === 0) {
-            this.favoriteContener.innerHTML = '<span class="empty-msg">(Aucune recherche favorite pour le moment)</span>';
-            return;
-        }
+        container.innerHTML = "";
 
-        favoris.forEach(crypto => {
-            const favElement = document.createElement('div');
-            favElement.classList.add('fav-badge');
-            favElement.innerHTML = `
-                <img src="${crypto.getThumb()}" alt="${crypto.getName()}">
-                <span>${crypto.getSymbol()}</span>
-            `;
-            
-            // LA MAGIE EST LÀ : La vue ne redirige plus ! Elle lance juste l'action du contrôleur avec l'ID.
-            favElement.onclick = () => {
-                actionClicFavori(crypto.getId());
-            };
-            
-            this.favoriteContener.appendChild(favElement);
-        });
+        if (!cryptoData || !cryptoData.is_favorite) {
+                container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
+                return;
+            }
+
+    const favElement = document.createElement('div');
+    favElement.classList.add('fav-badge');
+        favElement.style.cursor = "pointer";
+        
+        // On utilise les données du JSON (id, symbol, name)
+        favElement.innerHTML = `<span>${cryptoData.symbol.toUpperCase()}</span>
+        `;
+        
+        favElement.onclick = () => actionClic(cryptoData.id);
+        container.appendChild(favElement);
     }
 }

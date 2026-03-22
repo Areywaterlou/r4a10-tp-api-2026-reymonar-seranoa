@@ -74,12 +74,28 @@ export default class ResultatController {
                 this.view.afficherSuggestions(suggerees);
                 this.view.majBoutonFavori(estFavoriActuel);
 
-                // --- Gestion du bouton favori ---
+                // Gestion du bouton favori
                 this.view.btnFavori.onclick = () => {
                     const nouvelEtat = !maCrypto.isFav();
                     maCrypto.setFav(nouvelEtat);
                     this.view.majBoutonFavori(nouvelEtat);
                     maCrypto.saveFavToServer();
+                };
+
+                //affichage des favoris
+                this.view.btnFavori.onclick = async () => {
+                    const nouvelEtat = !maCrypto.isFav();
+                    maCrypto.setFav(nouvelEtat);
+                    this.view.majBoutonFavori(nouvelEtat);
+                    
+                    await maCrypto.saveFavToServer(); 
+
+                    // On rafraîchit la liste "Mes Favoris" en bas de page
+                    const updatedFav = await Crypto.retrieveFavIdToServer();
+
+                    this.view.afficherFavoris(updatedFav, (id) => {
+                        window.location.href = `resultat.html?id=${id}`;
+                    });
                 };
             }
         } catch (error) {

@@ -8,10 +8,18 @@ export default class RechercheController {
         this.view = view;
     }
 
-    init(){
-
-        this.ecouteEvent();
+async init() {
+    this.ecouteEvent();
+    
+    try {
+        const fav = await Crypto.retrieveFavIdToServer();
+        this.view.afficherFavoris(fav, (id) => {
+            window.location.href = `resultat.html?id=${id}`;
+        });
+    } catch (e) {
+        console.log("Erreur chargement favoris accueil");
     }
+}
 
     ecouteEvent() {
 
