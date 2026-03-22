@@ -10,17 +10,13 @@ export default class RechercheController {
 
 async init() {
     this.ecouteEvent();
-    
-    try {
-        const fav = await Crypto.retrieveFavIdToServer();
-        this.view.afficherFavoris(fav, (id) => {
-            window.location.href = `resultat.html?id=${id}`;
-        });
-    } catch (e) {
-        console.log("Erreur chargement favoris accueil");
-    }
-}
 
+    const listeFavoris = await Crypto.retrieveFavIdToServer();
+    
+    this.view.afficherFavoris(listeFavoris, (id) => {
+        window.location.href = `resultat.html?id=${id}`;
+    });
+}
     ecouteEvent() {
 
 
