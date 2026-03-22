@@ -132,4 +132,29 @@ export default class ResultatView {
             this.btnFavori.classList.remove("active");
         }
     }
+    
+    afficherFavoris(cryptoData, actionClic) {
+    const container = document.getElementById("favoritesList");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!cryptoData || !cryptoData.is_favorite) {
+        container.innerHTML = '<span class="empty-msg">(Aucun favori)</span>';
+        return;
+    }
+
+    const favElement = document.createElement('div');
+    favElement.classList.add('fav-badge');
+    favElement.style.cursor = "pointer";
+    
+    // On utilise l'image qu'on a maintenant dans le localStorage
+    favElement.innerHTML = `
+        <img src="${cryptoData.thumb}" alt="${cryptoData.name}" style="width:20px; margin-right:5px;">
+        <span>${cryptoData.symbol.toUpperCase()}</span>
+    `;
+    
+    favElement.onclick = () => actionClic(cryptoData.id);
+    container.appendChild(favElement);
+}
 }
