@@ -80,9 +80,8 @@ export default class Crypto {
      * @returns {Promise<void>|null}
      */
     saveFavToServer() {
-        if (!this.#fav) return null;
-
-        const cryptoData = {
+        
+            const cryptoData = {
             id: this.#id,
             name: this.#name,
             symbol: this.#symbol,

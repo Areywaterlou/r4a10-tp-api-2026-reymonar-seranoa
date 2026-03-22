@@ -31,6 +31,17 @@ export default class ResultatController {
             const base = dataInfo.coins.find(c => c.id === id) || dataInfo.coins[0];
             const idOfficiel = base.id;
 
+            let estFavoriActuel = false;
+            try {
+                const favEnregistre = await Crypto.retrieveFavIdToServer();
+
+                if (favEnregistre && favEnregistre.id === idOfficiel) {
+                    estFavoriActuel = true;
+                }
+            } catch (e) {
+                console.log("Pas encore de favori enregistré");
+            }
+
             const suggerees = dataInfo.coins.filter(c => c.id !== idOfficiel).slice(0, 5); 
 
             
@@ -56,22 +67,18 @@ export default class ResultatController {
                     prix.usd_24h_change,
                     prix.usd_24h_vol,
                     prix.usd_market_cap,
-                    false
+                    estFavoriActuel
                 );
 
                 this.view.afficherResultat(maCrypto);
                 this.view.afficherSuggestions(suggerees);
+                this.view.majBoutonFavori(estFavoriActuel);
 
-                this.view.majBoutonFavori(false);
-                
                 // --- Gestion du bouton favori ---
                 this.view.btnFavori.onclick = () => {
                     const nouvelEtat = !maCrypto.isFav();
-                    
                     maCrypto.setFav(nouvelEtat);
-                    
                     this.view.majBoutonFavori(nouvelEtat);
-                    
                     maCrypto.saveFavToServer();
                 };
             }

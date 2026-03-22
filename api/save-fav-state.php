@@ -1,39 +1,31 @@
 <?php
-//script qui écrit dans le fichier JSON pour enregistrer un nouveau favori.
+header('Content-Type: application/json');
 
-if (!array_key_exists('state', $_POST)) {
-  // Définition du statut de réponse de la requête (500 = Internal Server Error)
-  http_response_code(500);
-  // puis levée d'une exception
-  throw new Exception("Erreur Serveur (Donnée manquante)");
+if (!isset($_POST['state'])) {
+    http_response_code(400);
+    echo json_encode(["error" => "Donnée manquante"]);
+    exit;
 }
 
-// Récupération des données sous la forme d'une chaine
 $stateData = $_POST['state'];
 
-// Vérification du JSON
-$obj = json_decode($stateData);
-if ($obj === NULL) {
-  // Définition du statut de la réponse puis levée d'une exception
-  http_response_code(500);
-  throw new Exception("Erreur Serveur (Chaine qui n'est pas au format JSON)");
+// vérifie JSON
+if (json_decode($stateData) === null) {
+    http_response_code(400);
+    echo json_encode(["error" => "Format JSON invalide"]);
+    exit;
 }
 
-if (!is_writable('etat.json')) {
-  // Définition du statut de la réponse puis levée d'une exception
-  http_response_code(500);
-  throw new Exception("Erreur Serveur (Fichier non accessible en écriture)");
-}
+$file = 'fav.json';
 
 try {
-  // Ouverture du fichier en mode écriture
-  $file = fopen('fav.json', 'w');
-  // Écriture de la chaine récupérée dans le fichier etat.json
-  fputs($file, $stateData);
-  // Fermeture du fichier
-  fclose($file);
+
+if (file_put_contents($file, $stateData) !== false) {
+        echo json_encode(["status" => "success"]);
+    } else {
+        throw new Exception("Impossible d'écrire dans le fichier");
+    }
 } catch (Exception $ex) {
-  // Définition du statut de la réponse puis levée d'une exception
-  http_response_code(500);
-  throw new Exception("Erreur Serveur (Problème sur le fichier)");
+    http_response_code(500);
+    echo json_encode(["error" => $ex->getMessage()]);
 }
