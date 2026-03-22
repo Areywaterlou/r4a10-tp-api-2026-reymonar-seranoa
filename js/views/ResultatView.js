@@ -133,42 +133,44 @@ export default class ResultatView {
      * @param {Object} cryptoData - Les données du favori (id, name, symbol, thumb, price, is_favorite)
      * @param {Function} actionClic - La fonction de redirection
      */
-    afficherFavoris(cryptoData, actionClic) {
+    afficherFavoris(listeFavoris, actionClic) {
         const container = document.getElementById("favoritesList");
         if (!container) return;
         container.innerHTML = "";
 
-        if (!cryptoData || !cryptoData.is_favorite) {
+        if (!listeFavoris || listeFavoris.length === 0) {
             container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
             return;
         }
 
-        const favRow = document.createElement('div');
-        favRow.classList.add('spotify-item');
-        
-        const prix = cryptoData.price || 0;
-        const nbDec = prix < 1 ? 6 : 2;
-        const formattedPrice = new Intl.NumberFormat('en-US', { 
-            style: 'currency', 
-            currency: 'USD',
-            maximumFractionDigits: nbDec 
-        }).format(prix);
+        listeFavoris.forEach(cryptoData => {
+            const favRow = document.createElement('div');
+            favRow.classList.add('spotify-item');
+            
+            const prix = cryptoData.price || 0;
+            const nbDec = prix < 1 ? 6 : 2;
+            const formattedPrice = new Intl.NumberFormat('en-US', { 
+                style: 'currency', 
+                currency: 'USD',
+                maximumFractionDigits: nbDec 
+            }).format(prix);
 
-        favRow.innerHTML = `
-            <div class="spot-left">
-                <img src="${cryptoData.thumb}" alt="${cryptoData.name}">
-                <div class="spot-info">
-                    <span class="spot-name">${cryptoData.name}</span>
-                    <span class="spot-symbol">${cryptoData.symbol}</span>
+            favRow.innerHTML = `
+                <div class="spot-left">
+                    <img src="${cryptoData.thumb}" alt="${cryptoData.name}">
+                    <div class="spot-info">
+                        <span class="spot-name">${cryptoData.name}</span>
+                        <span class="spot-symbol">${cryptoData.symbol.toUpperCase()}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="spot-right">
-                <span class="spot-price">${formattedPrice}</span>
-                <span class="spot-arrow">→</span>
-            </div>
-        `;
-        
-        favRow.onclick = () => actionClic(cryptoData.id);
-        container.appendChild(favRow);
+                <div class="spot-right">
+                    <span class="spot-price">${formattedPrice}</span>
+                    <span class="spot-arrow">→</span>
+                </div>
+            `;
+            
+            favRow.onclick = () => actionClic(cryptoData.id);
+            container.appendChild(favRow);
+        });
     }
 }

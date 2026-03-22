@@ -75,33 +75,36 @@ export default class Crypto {
     /** @param {boolean} fav */
     setFav(fav) { this.#fav = fav; }
 
-    /**
-     * Sauvegarde le favori avec prix et image dans le LocalStorage (GitHub)
-     */
     saveFavToServer() {
+    let favoris = JSON.parse(localStorage.getItem('mesFavoris')) || [];
+
+    if (this.#fav) {
+
         const cryptoData = {
             id: this.#id,
             name: this.#name,
             symbol: this.#symbol,
             thumb: this.#thumb,
-            price: this.#usd,
-            is_favorite: this.#fav
+            price: this.#usd, 
+            is_favorite: true
         };
-
-        // On stocke sous forme de chaine JSON
-        localStorage.setItem('monFavori', JSON.stringify(cryptoData));
-        console.log("Sauvegardé avec prix :", cryptoData.name, cryptoData.price);
+        
+        const existeDeja = favoris.find(f => f.id === this.#id);
+        if (!existeDeja) favoris.push(cryptoData);
+    } else {
+        favoris = favoris.filter(f => f.id !== this.#id);
     }
+
+    localStorage.setItem('mesFavoris', JSON.stringify(favoris));
+}
 
     /**
      * Récupère la liste des IDs favoris depuis le local storage
     * @static
     * @returns {Promise<Object>} Données des favoris
     */
-    static async retrieveFavIdToServer() {
-
-        const data = localStorage.getItem('monFavori');
-        if (!data) return null;
-        return JSON.parse(data);
+   static async retrieveFavIdToServer() {
+        const data = localStorage.getItem('mesFavoris');
+        return data ? JSON.parse(data) : [];
     }
 }
