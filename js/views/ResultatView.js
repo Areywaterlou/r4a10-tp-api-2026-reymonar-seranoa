@@ -79,7 +79,12 @@ export default class ResultatView {
      */
     afficherSuggestions(liste) {
         if (!this.listeSimilaire) return;
-        this.listeSimilaire.innerHTML = ""; // On vide le message "Chargement..."
+        this.listeSimilaire.innerHTML = "";
+
+        if (liste.length === 0) {
+            this.listeSimilaire.innerHTML = '<span class="empty-msg">Aucune suggestion trouvée.</span>';
+            return;
+        }
 
         liste.forEach(coin => {
             const coinId = coin.id; 
