@@ -61,8 +61,18 @@ export default class ResultatController {
 
                 this.view.afficherResultat(maCrypto);
                 this.view.afficherSuggestions(suggerees);
+                
+                // --- Gestion du bouton favori ---
+                this.view.btnFavori.onclick = () => {
+                    const nouvelEtat = !maCrypto.isFav();
+                    
+                    maCrypto.setFav(nouvelEtat);
+                    
+                    this.view.majBoutonFavori(nouvelEtat);
+                    
+                    maCrypto.saveFavToServer();
+                };
             }
-
         } catch (error) {
             console.error("Erreur :", error);
         }
