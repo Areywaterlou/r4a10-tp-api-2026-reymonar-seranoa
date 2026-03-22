@@ -329,3 +329,90 @@ input::placeholder {
     display: block;
     margin: 20px auto; /* Centre le GIF horizontalement */
 }
+
+/* 1. Style pour le badge favori en bas de page */
+.fav-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 255, 149, 0.1); /* Fond vert très léger */
+    border: 1px solid #00ff95; /* Bordure néon */
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin: 5px;
+    transition: all 0.3s ease;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.fav-badge:hover {
+    background: rgba(0, 255, 149, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(0, 255, 149, 0.4);
+}
+
+.fav-badge img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+/* 2. Style pour le bouton étoile en haut */
+#favoriteButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 10px;
+}
+
+#favoriteButton:hover {
+    transform: scale(1.2);
+}
+
+#favoriteButton img {
+    width: 32px; /* Taille de l'étoile SVG */
+    height: 32px;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 149, 0.5));
+}
+
+/* 3. Message quand c'est vide */
+.empty-msg {
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Container des favoris */
+.favorites-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 50px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px dashed rgba(0, 255, 149, 0.2);
+}
+
+/* Badge favori */
+.fav-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a1a1a;
+    border: 1px solid #00ff95;
+    color: #00ff95;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(0, 255, 149, 0.2);
+    transition: 0.3s;
+}
+
+.fav-badge:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 149, 0.5);
+    background: #00ff95;
+    color: #121212;
+}

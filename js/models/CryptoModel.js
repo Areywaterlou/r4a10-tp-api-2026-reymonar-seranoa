@@ -84,6 +84,7 @@ export default class Crypto {
         id: this.#id,
         name: this.#name,
         symbol: this.#symbol,
+        thumb: this.#thumb,
         is_favorite: this.#fav
     };
 
@@ -99,9 +100,7 @@ export default class Crypto {
     static async retrieveFavIdToServer() {
 
     const data = localStorage.getItem('monFavori');
-    
     if (!data) return null;
-    
     return JSON.parse(data);
 }
 }
