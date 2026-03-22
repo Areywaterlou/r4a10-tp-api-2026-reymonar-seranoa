@@ -1,4 +1,4 @@
-import Crypto  from "../models/CryptoModel.js";
+import Crypto from "../models/CryptoModel.js";
 
 export default class ResultatController {
     constructor(view) {
