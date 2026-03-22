@@ -48,7 +48,7 @@ export default class ResultatController {
             );
 
             this.view.afficherResultat(maCrypto);
-            this.view.afficherSuggestions(suggererees);
+            this.view.afficherSuggestions(suggerees);
         }
 
     } catch (error) {
