@@ -45,10 +45,18 @@ export default class ResultatView {
                 this.badgeRang.textContent = `Rang #${crypto.getMarketCapRank() || 'N/A'}`;
             }
 
+            const prixUSD = crypto.getUsd();
+            
             if (this.prixAffichage) {
+               
+                const nbDecimales = prixUSD < 1 ? 8 : 2;
+
                 this.prixAffichage.textContent = new Intl.NumberFormat('en-US', { 
-                    style: 'currency', currency: 'USD' 
-                }).format(crypto.getUsd());
+                    style: 'currency', 
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: nbDecimales
+                }).format(prixUSD);
             }
 
             const modif = crypto.getUsd24hChange();
