@@ -59,11 +59,6 @@ export default class ResultatView {
                 }).format(prixUSD);
             }
 
-            const modif = crypto.getUsd24hChange();
-            if (this.changement24h) {
-                this.changement24h.textContent = `${modif > 0 ? '+' : ''}${modif.toFixed(2)}% (24h)`;
-                this.changement24h.className = `change ${modif >= 0 ? 'up' : 'down'}`;
-            }
 
             if (this.valeursCartes.length >= 2) {
                 this.valeursCartes[0].textContent = this.formaterNombre(crypto.getUsdMarketCap()) + " $";

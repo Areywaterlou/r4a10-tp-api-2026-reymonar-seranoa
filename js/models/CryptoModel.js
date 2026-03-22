@@ -83,8 +83,8 @@ export default class Crypto {
             id: this.#id,
             name: this.#name,
             symbol: this.#symbol,
-            thumb: this.#thumb, // Image
-            price: this.#market_cap_rank,
+            thumb: this.#thumb,
+            price: this.#usd,
             is_favorite: this.#fav
         };
 
