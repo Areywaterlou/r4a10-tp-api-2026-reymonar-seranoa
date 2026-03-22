@@ -71,19 +71,27 @@ export default class ResultatView {
      */
     afficherSuggestions(liste) {
         if (!this.listeSimilaire) return;
-        this.listeSimilaire.innerHTML = ""; 
+        this.listeSimilaire.innerHTML = ""; // On vide le message "Chargement..."
 
         liste.forEach(coin => {
+            const coinId = coin.id; 
+
             const div = document.createElement("div");
-            div.classList.add("fav-badge");
+            div.classList.add("fav-badge"); 
             div.style.cursor = "pointer";
             div.innerHTML = `
                 <img src="${coin.thumb}" alt="${coin.name}">
-                <span>${coin.symbol}</span>
+                <span>${coin.symbol.toUpperCase()}</span>
             `;
-            
-            // Au clic, on recharge la page de résultat avec le nouvel ID
-            div.onclick = () => window.location.href = `resultat.html?id=${coin.id}`;
+
+            div.onclick = () => {
+                if (coinId) {
+                    window.location.href = `resultat.html?id=${coinId}`;
+                } else {
+                    console.error("ID introuvable pour cette suggestion", coin);
+                }
+            };
+
             this.listeSimilaire.appendChild(div);
         });
     }

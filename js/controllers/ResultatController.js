@@ -47,7 +47,6 @@ export default class ResultatController {
                 false
             );
 
-            // 4. Envoyer tout à la vue
             this.view.afficherResultat(maCrypto);
             this.view.afficherSuggestions(suggerees);
 
