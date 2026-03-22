@@ -146,15 +146,11 @@ export default class ResultatView {
 
         const favElement = document.createElement('div');
         favElement.classList.add('fav-badge');
-        favElement.style.cursor = "pointer";
         
         const imageSrc = cryptoData.thumb ? cryptoData.thumb : "";
-        const displayImg = imageSrc ? `<img src="${imageSrc}" style="width:20px; margin-right:5px; vertical-align:middle;">` : "⭐ ";
+        const imgHtml = imageSrc ? `<img src="${imageSrc}" style="width:20px; margin-right:8px;">` : "";
 
-        favElement.innerHTML = `
-            ${displayImg}
-            <span>${cryptoData.symbol ? cryptoData.symbol.toUpperCase() : '???'}</span>
-        `;
+        favElement.innerHTML = `${imgHtml}<span>${cryptoData.symbol.toUpperCase()}</span>`;
         
         favElement.onclick = () => actionClic(cryptoData.id);
         container.appendChild(favElement);

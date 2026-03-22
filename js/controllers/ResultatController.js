@@ -69,6 +69,11 @@ export default class ResultatController {
                     prix.usd_market_cap,
                     estFavoriActuel
                 );
+                
+                const favStocke = await Crypto.retrieveFavIdToServer();
+                this.view.afficherFavoris(favStocke, (id) => {
+                    window.location.href = `resultat.html?id=${id}`;
+                });
 
                 this.view.afficherResultat(maCrypto);
                 this.view.afficherSuggestions(suggerees);
