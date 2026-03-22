@@ -147,7 +147,7 @@ export default class ResultatView {
         favRow.classList.add('spotify-item');
 
         const prix = cryptoData.price || 0;
-        const nbDec = prix < 1 ? 6 : 2; // On met 6 ou 8 pour les petits prix
+        const nbDec = prix < 1 ? 6 : 2;
         const formattedPrice = new Intl.NumberFormat('en-US', { 
             style: 'currency', 
             currency: 'USD',
