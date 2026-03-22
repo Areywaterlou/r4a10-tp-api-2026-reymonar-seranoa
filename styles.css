@@ -578,3 +578,53 @@ input::placeholder {
     display: block;
     margin: 20px auto;
 }
+/* --- STYLE LISTE FAVORIS (SPOTIFY LOOK) --- */
+
+/* Le container force l'alignement en colonne */
+#favoritesList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* On remplace le look "badge" par un look "ligne" */
+.fav-badge {
+    display: flex !important; /* Force le flex */
+    align-items: center;
+    justify-content: space-between; /* Nom à gauche, Prix à droite */
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.fav-badge:hover {
+    background: rgba(130, 204, 30, 0.1);
+    border-color: var(--green-accent);
+    transform: translateX(5px);
+}
+
+/* Image et texte à gauche */
+.fav-badge .left-part {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.fav-badge img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+/* Le prix à droite en vert néon */
+.fav-price-list {
+    color: var(--green-accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+}

@@ -145,8 +145,15 @@ export default class ResultatView {
 
         const favRow = document.createElement('div');
         favRow.classList.add('spotify-item');
-        
-        const formattedPrice = cryptoData.price ? cryptoData.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'N/A';
+
+        const prix = cryptoData.price || 0;
+        const nbDec = prix < 1 ? 6 : 2; // On met 6 ou 8 pour les petits prix
+        const formattedPrice = new Intl.NumberFormat('en-US', { 
+            style: 'currency', 
+            currency: 'USD',
+            maximumFractionDigits: nbDec 
+        }).format(prix);
+            
         
         favRow.innerHTML = `
             <div class="spot-left">
