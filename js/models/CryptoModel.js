@@ -76,31 +76,32 @@ export default class Crypto {
     setFav(fav) { this.#fav = fav; }
 
     /**
-     * Envoie l'état de favori au serveur PHP
-     * @returns {Promise<void>|null}
+     * Sauvegarde le favori avec prix et image dans le LocalStorage (GitHub)
      */
     saveFavToServer() {
-    const cryptoData = {
-        id: this.#id,
-        name: this.#name,
-        symbol: this.#symbol,
-        thumb: this.#thumb,
-        is_favorite: this.#fav
-    };
+        const cryptoData = {
+            id: this.#id,
+            name: this.#name,
+            symbol: this.#symbol,
+            thumb: this.#thumb, // Image
+            price: this.#market_cap_rank,
+            is_favorite: this.#fav
+        };
 
-    localStorage.setItem('monFavori', JSON.stringify(cryptoData));
-    console.log("Sauvegardé dans le LocalStorage !");
-}
+        // On stocke sous forme de chaine JSON
+        localStorage.setItem('monFavori', JSON.stringify(cryptoData));
+        console.log("Sauvegardé avec prix :", cryptoData.name, cryptoData.price);
+    }
 
     /**
      * Récupère la liste des IDs favoris depuis le local storage
-     * @static
-     * @returns {Promise<Object>} Données des favoris
-     */
+    * @static
+    * @returns {Promise<Object>} Données des favoris
+    */
     static async retrieveFavIdToServer() {
 
-    const data = localStorage.getItem('monFavori');
-    if (!data) return null;
-    return JSON.parse(data);
-}
+        const data = localStorage.getItem('monFavori');
+        if (!data) return null;
+        return JSON.parse(data);
+    }
 }

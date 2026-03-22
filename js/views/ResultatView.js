@@ -133,6 +133,11 @@ export default class ResultatView {
         }
     }
     
+    /**
+     * Affiche le favori sous forme de mini-carte riche (Image, Nom, Prix)
+     * @param {Object} cryptoData - Les données du favori (id, name, symbol, thumb, price, is_favorite)
+     * @param {Function} actionClic - La fonction de redirection
+     */
     afficherFavoris(cryptoData, actionClic) {
         const container = document.getElementById("favoritesList");
         if (!container) return;
@@ -140,17 +145,32 @@ export default class ResultatView {
         container.innerHTML = "";
 
         if (!cryptoData || !cryptoData.is_favorite) {
-            container.innerHTML = '<span class="empty-msg">(Aucun favori)</span>';
+            container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
             return;
         }
 
         const favElement = document.createElement('div');
         favElement.classList.add('fav-badge');
-        
-        const imageSrc = cryptoData.thumb ? cryptoData.thumb : "";
-        const imgHtml = imageSrc ? `<img src="${imageSrc}" style="width:20px; margin-right:8px;">` : "";
+        favElement.style.cursor = "pointer";
+        favElement.title = `Voir les détails de ${cryptoData.name}`;
 
-        favElement.innerHTML = `${imgHtml}<span>${cryptoData.symbol.toUpperCase()}</span>`;
+        const formattedPrice = cryptoData.price ? cryptoData.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'N/A';
+        
+        const imageSrc = cryptoData.thumb ? cryptoData.thumb : "images/placeholder.png"; // Placeholder par défaut
+        
+        favElement.innerHTML = `
+            <div class="fav-icon">
+                <img src="${imageSrc}" alt="${cryptoData.name}">
+            </div>
+            <div class="fav-info">
+                <div class="fav-name-symbol">
+                    <span class="fav-name">${cryptoData.name}</span>
+                    <span class="fav-symbol">(${cryptoData.symbol.toUpperCase()})</span>
+                </div>
+                <div class="fav-price">${formattedPrice}</div>
+            </div>
+            <div class="fav-arrow">→</div>
+        `;
         
         favElement.onclick = () => actionClic(cryptoData.id);
         container.appendChild(favElement);
