@@ -42,6 +42,7 @@ export default class ResultatController {
 
             // On envoie à la vue
             this.view.afficherResultat(maCrypto);
+            this.view.afficherSuggestions(suggerees);
 
         } catch (error) {
             console.error("Erreur de chargement :", error);
