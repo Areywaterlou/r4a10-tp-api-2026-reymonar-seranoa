@@ -166,72 +166,11 @@ input::placeholder {
     font-size: 0.9em;
 }
 
-/* Badges favoris unifiés */
-.fav-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--card-color);
-    border: 1px solid var(--green-accent);
-    padding: 8px 16px;
-    border-radius: 8px;
-    color: var(--green-accent);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 0 5px rgba(130, 204, 30, 0.1); /* Ombre douce avec ton vert */
-    transition: all 0.3s ease;
-}
-
-.fav-badge:hover {
-    background: var(--green-accent);
-    color: var(--bg-color); /* Texte sombre au survol pour un bon contraste */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(130, 204, 30, 0.4);
-}
-
-.fav-badge img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-}
 
 .fav-icon-svg {
     width: 24px;
     height: 24px;
     vertical-align: middle;
-}
-
-/* Container des favoris */
-#favoritesList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 10px 0;
-}
-
-/* Nouveau Badge Favori "Riche" */
-.fav-badge {
-    display: flex;
-    align-items: center;
-    background: #1a1a1a; /* Fond sombre */
-    border: 1px solid #333; /* Bordure discrète par défaut */
-    border-radius: 12px;
-    padding: 12px;
-    min-width: 200px;
-    transition: all 0.3s ease;
-    user-select: none;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Hover : Effet Néon Vert */
-.fav-badge:hover {
-    border-color: #00ff95;
-    background: rgba(0, 255, 149, 0.05);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 255, 149, 0.2);
 }
 
 /* Zone Icône */
@@ -295,20 +234,6 @@ input::placeholder {
     font-size: 1.2rem;
     transition: all 0.3s ease;
     opacity: 0;
-}
-
-.fav-badge:hover .fav-arrow {
-    opacity: 1;
-    color: #00ff95;
-    right: 10px;
-}
-
-/* Le container devient une liste verticale */
-#favoritesList {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px 0;
 }
 
 /* La ligne style Spotify */
@@ -583,7 +508,7 @@ input::placeholder {
 
 .favorites-full-width {
     width: 100%;
-    max-width: 1000px; /* S'aligne avec le reste du contenu */
+    max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px;
 }
@@ -605,13 +530,35 @@ input::placeholder {
     border-radius: 2px;
 }
 
+
+/* --- SECTION & LISTE FAVORIS (UNIFIÉ) --- */
+
+.favorites-full-width {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.favorites-title {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    border-left: 4px solid var(--green-accent);
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
 #favoritesList {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Espace entre les lignes */
+    gap: 10px;
+    width: 100%;
 }
 
-/* Style de la ligne (Spotify Look) */
 .spotify-item {
     display: flex;
     align-items: center;
@@ -622,12 +569,14 @@ input::placeholder {
     border: 1px solid var(--border-soft);
     transition: all 0.2s ease;
     cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .spotify-item:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: var(--green-accent);
-    transform: translateX(8px); /* Petit décalage au survol */
+    transform: translateX(8px); /* Effet de glissement fluide */
 }
 
 .spot-left {
@@ -637,16 +586,16 @@ input::placeholder {
 }
 
 .spot-left img {
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     object-fit: cover;
+    background: #000;
 }
 
 .spot-info {
     display: flex;
     flex-direction: column;
-    text-align: left;
 }
 
 .spot-name {
@@ -661,6 +610,7 @@ input::placeholder {
     text-transform: uppercase;
 }
 
+/* Partie Droite : Prix + Flèche */
 .spot-right {
     display: flex;
     align-items: center;
@@ -677,8 +627,16 @@ input::placeholder {
 .spot-arrow {
     color: #444;
     font-size: 1.2rem;
+    transition: color 0.2s;
 }
 
 .spotify-item:hover .spot-arrow {
     color: var(--green-accent);
+}
+
+/* Message si vide */
+.empty-msg {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.9rem;
 }
