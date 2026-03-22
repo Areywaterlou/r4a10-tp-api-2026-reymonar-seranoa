@@ -134,6 +134,7 @@ input::placeholder {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+    justify-content: center; /* Centre le titre pour équilibrer avec la boîte */
     gap: 10px;
 }
 
@@ -145,14 +146,18 @@ input::placeholder {
 .favorites-box {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    min-height: 50px;
+    gap: 15px; /* Espacement propre entre les badges */
+    min-height: 80px; /* Donne un bel espace même si c'est vide */
+    width: 100%; /* Force la boîte à prendre toute la largeur */
+    box-sizing: border-box;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px dashed rgba(0, 255, 149, 0.2);
+    border: 1px dashed rgba(130, 204, 30, 0.3); /* Bordure avec ton vert de base en transparent */
     border-radius: 12px;
-    padding: 15px;
-    text-align: center;
+    padding: 20px;
+    align-items: center;
+    justify-content: center; /* Centre les badges à l'intérieur */
     color: var(--text-secondary);
+    transition: all 0.3s ease;
 }
 
 .empty-msg {
@@ -166,31 +171,29 @@ input::placeholder {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #1a1a1a;
-    border: 1px solid #00ff95;
-    padding: 6px 12px;
+    background: var(--card-color);
+    border: 1px solid var(--green-accent);
+    padding: 8px 16px;
     border-radius: 8px;
-    margin: 5px;
-    color: #00ff95;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: bold;
+    color: var(--green-accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 255, 149, 0.2);
+    box-shadow: 0 0 5px rgba(130, 204, 30, 0.1); /* Ombre douce avec ton vert */
     transition: all 0.3s ease;
 }
 
 .fav-badge:hover {
-    background: #00ff95;
-    color: #121212;
+    background: var(--green-accent);
+    color: var(--bg-color); /* Texte sombre au survol pour un bon contraste */
     transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(0, 255, 149, 0.5);
+    box-shadow: 0 4px 15px rgba(130, 204, 30, 0.4);
 }
 
 .fav-badge img {
     width: 20px;
     height: 20px;
-    margin-right: 10px;
     border-radius: 50%;
 }
 
