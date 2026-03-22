@@ -203,6 +203,190 @@ input::placeholder {
     vertical-align: middle;
 }
 
+/* Container des favoris */
+#favoritesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+/* Nouveau Badge Favori "Riche" */
+.fav-badge {
+    display: flex;
+    align-items: center;
+    background: #1a1a1a; /* Fond sombre */
+    border: 1px solid #333; /* Bordure discrète par défaut */
+    border-radius: 12px;
+    padding: 12px;
+    min-width: 200px;
+    transition: all 0.3s ease;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover : Effet Néon Vert */
+.fav-badge:hover {
+    border-color: #00ff95;
+    background: rgba(0, 255, 149, 0.05);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 149, 0.2);
+}
+
+/* Zone Icône */
+.fav-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.fav-icon img {
+    max-width: 100%;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+}
+
+/* Zone Info */
+.fav-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Nom et Symbole */
+.fav-name-symbol {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 2px;
+}
+
+.fav-name {
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-right: 5px;
+}
+
+.fav-symbol {
+    color: #888;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Zone Prix */
+.fav-price {
+    color: #00ff95; /* Vert Néon */
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Flèche discrète */
+.fav-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.fav-badge:hover .fav-arrow {
+    opacity: 1;
+    color: #00ff95;
+    right: 10px;
+}
+
+/* Le container devient une liste verticale */
+#favoritesList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 0;
+}
+
+/* La ligne style Spotify */
+.spotify-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.1s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.spotify-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 255, 149, 0.3);
+}
+
+.spotify-item:active {
+    transform: scale(0.99);
+}
+
+/* Partie gauche : Image + Textes */
+.spot-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.spot-left img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px; /* Un peu plus carré comme les albums */
+}
+
+.spot-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.spot-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.spot-symbol {
+    color: #b3b3b3;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+/* Partie droite : Prix + Flèche */
+.spot-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.spot-price {
+    color: var(--green-accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+}
+
+.spot-arrow {
+    color: #555;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.spotify-item:hover .spot-arrow {
+    color: #00ff95;
+    transform: translateX(5px);
+}
+
 /* Bouton Étoile Favori */
 #favoriteButton {
     background: transparent;
