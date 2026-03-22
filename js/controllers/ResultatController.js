@@ -7,7 +7,7 @@ export default class ResultatController {
 
     async init() {
         const params = new URLSearchParams(window.location.search);
-        const id = params.get('id'); // On récupère l'id depuis l'URL
+        const id = params.get('id'); 
 
         if (id) {
             this.chargerDonnees(id);
@@ -18,34 +18,53 @@ export default class ResultatController {
         try {
 
             const repInfo = await fetch(`https://api.coingecko.com/api/v3/search?query=${id}`);
+            
+            if (repInfo.status === 429) {
+                alert("L'API a besoin de souffler. Attends 1 minute !");
+                return;
+            }
+
             const dataInfo = await repInfo.json();
+            
+            if (!dataInfo.coins || dataInfo.coins.length === 0) return;
+
             const base = dataInfo.coins.find(c => c.id === id) || dataInfo.coins[0];
+            const idOfficiel = base.id;
 
+            const suggerees = dataInfo.coins.filter(c => c.id !== idOfficiel).slice(0, 5); 
 
-            const repPrix = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`);
+            
+            const repPrix = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${idOfficiel}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`);
+            
+            if (repPrix.status === 429) {
+                alert("Trop de recherches ! Patiente un instant...");
+                return;
+            }
+
             const dataPrix = await repPrix.json();
-            const prix = dataPrix[id];
+            const prix = dataPrix[idOfficiel];
 
-            const maCrypto = new Crypto(
-                id,
-                base.name,
-                base.symbol,
-                base.market_cap_rank,
-                base.thumb,
-                base.large,
-                prix.usd,
-                prix.usd_24h_change,
-                prix.usd_24h_vol,
-                prix.usd_market_cap,
-                false
-            );
+            if (prix && base) {
+                const maCrypto = new Crypto(
+                    idOfficiel,
+                    base.name,
+                    base.symbol,
+                    base.market_cap_rank,
+                    base.thumb,
+                    base.large,
+                    prix.usd,
+                    prix.usd_24h_change,
+                    prix.usd_24h_vol,
+                    prix.usd_market_cap,
+                    false
+                );
 
-            // On envoie à la vue
-            this.view.afficherResultat(maCrypto);
-            this.view.afficherSuggestions(suggerees);
+                this.view.afficherResultat(maCrypto);
+                this.view.afficherSuggestions(suggerees);
+            }
 
         } catch (error) {
-            console.error("Erreur de chargement :", error);
+            console.error("Erreur :", error);
         }
     }
 }

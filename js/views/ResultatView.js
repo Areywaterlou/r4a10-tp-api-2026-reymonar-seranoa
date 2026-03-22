@@ -10,6 +10,9 @@ export default class ResultatView {
         this.badgeRang = document.querySelector(".badge");
         this.prixAffichage = document.querySelector(".price-val");
         this.changement24h = document.querySelector(".change");
+        this.btnFavori = document.getElementById("favoriteButton");
+        this.nomSimilaire = document.getElementById("currentCoinName");
+        this.listeSimilaire = document.getElementById("similarCoinsList");
         
         // Cible les <p> dans les cartes de données (Cap, Volume, etc.)
         this.valeursCartes = document.querySelectorAll(".data-card p");
@@ -27,48 +30,83 @@ export default class ResultatView {
      * @param {Crypto} crypto - L'instance du modèle Crypto reçue du Controller
      */
     afficherResultat(crypto) {
-        console.log("Données reçues pour affichage :", crypto);
-
         try {
-            // Image et Titre
             if (this.logo) this.logo.src = crypto.getLarge();
             
             if (this.titreNom) {
                 this.titreNom.innerHTML = `${crypto.getName()} <span class="symbol">${crypto.getSymbol().toUpperCase()}</span>`;
             }
 
+            if (this.nomSimilaire) {
+                this.nomSimilaire.textContent = crypto.getName();
+            }
+
             if (this.badgeRang) {
                 this.badgeRang.textContent = `Rang #${crypto.getMarketCapRank() || 'N/A'}`;
             }
 
-            // Prix Formaté (Vérifie si le prix est bien un nombre)
             const prixUSD = crypto.getUsd();
-            console.log("Prix brut reçu :", prixUSD);
             
             if (this.prixAffichage) {
+               
+                const nbDecimales = prixUSD < 1 ? 8 : 2;
+
                 this.prixAffichage.textContent = new Intl.NumberFormat('en-US', { 
-                    style: 'currency', currency: 'USD' 
+                    style: 'currency', 
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: nbDecimales
                 }).format(prixUSD);
             }
 
-            // Changement 24h (couleur dynamique)
             const modif = crypto.getUsd24hChange();
             if (this.changement24h) {
                 this.changement24h.textContent = `${modif > 0 ? '+' : ''}${modif.toFixed(2)}% (24h)`;
                 this.changement24h.className = `change ${modif >= 0 ? 'up' : 'down'}`;
             }
 
-            // Cartes du bas (Capitalisation et Volume)
             if (this.valeursCartes.length >= 2) {
                 this.valeursCartes[0].textContent = this.formaterNombre(crypto.getUsdMarketCap()) + " $";
                 this.valeursCartes[1].textContent = this.formaterNombre(crypto.getUsd24hVol()) + " $";
             }
-
-            console.log("Affichage réussi !");
-
         } catch (error) {
-            console.error("Erreur lors de l'injection des données dans la vue :", error);
+            console.error("Erreur injection données :", error);
         }
+    }
+
+    /**
+     * Affiche les petites vignettes des cryptos suggérées
+     */
+    afficherSuggestions(liste) {
+        if (!this.listeSimilaire) return;
+        this.listeSimilaire.innerHTML = "";
+
+        if (liste.length === 0) {
+            this.listeSimilaire.innerHTML = '<span class="empty-msg">Aucune suggestion trouvée.</span>';
+            return;
+        }
+
+        liste.forEach(coin => {
+            const coinId = coin.id; 
+
+            const div = document.createElement("div");
+            div.classList.add("fav-badge"); 
+            div.style.cursor = "pointer";
+            div.innerHTML = `
+                <img src="${coin.thumb}" alt="${coin.name}">
+                <span>${coin.symbol.toUpperCase()}</span>
+            `;
+
+            div.onclick = () => {
+                if (coinId) {
+                    window.location.href = `resultat.html?id=${coinId}`;
+                } else {
+                    console.error("ID introuvable pour cette suggestion", coin);
+                }
+            };
+
+            this.listeSimilaire.appendChild(div);
+        });
     }
 
     formaterNombre(num) {
