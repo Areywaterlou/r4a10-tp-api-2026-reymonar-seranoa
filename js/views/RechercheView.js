@@ -23,31 +23,46 @@ export default class RechercheView {
         alert(message);
     }
 
-    /**
- * Affiche le favori stocké dans le JSON
- * @param {Object} cryptoData - L'objet récupéré du serveur
- * @param {Function} actionClic - La redirection à effectuer au clic
- */
-afficherFavoris(cryptoData, actionClic) {
-    const container = document.getElementById("favoritesList");
-    if (!container) return;
-
+   /**
+     * Affiche le favori sous forme de mini-carte riche (Image, Nom, Prix)
+     * @param {Object} cryptoData - Les données du favori (id, name, symbol, thumb, price, is_favorite)
+     * @param {Function} actionClic - La fonction de redirection
+     */
+    afficherFavoris(listeFavoris, actionClic) {
+        const container = document.getElementById("favoritesList");
+        if (!container) return;
         container.innerHTML = "";
 
-        if (!cryptoData || !cryptoData.is_favorite) {
-                container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
-                return;
-            }
+        if (!listeFavoris || listeFavoris.length === 0) {
+            container.innerHTML = '<span class="empty-msg">(Aucun favori)</span>';
+            return;
+        }
 
-    const favElement = document.createElement('div');
-    favElement.classList.add('fav-badge');
-        favElement.style.cursor = "pointer";
-        
-        // On utilise les données du JSON (id, symbol, name)
-        favElement.innerHTML = `<span>${cryptoData.symbol.toUpperCase()}</span>
-        `;
-        
-        favElement.onclick = () => actionClic(cryptoData.id);
-        container.appendChild(favElement);
+        listeFavoris.forEach(cryptoData => {
+            const favRow = document.createElement('div');
+            favRow.classList.add('spotify-item');
+            
+            const prix = cryptoData.price || 0;
+            const formattedPrice = new Intl.NumberFormat('en-US', { 
+                style: 'currency', currency: 'USD' 
+            }).format(prix);
+
+            favRow.innerHTML = `
+                <div class="spot-left">
+                    <img src="${cryptoData.thumb}" alt="${cryptoData.name}">
+                    <div class="spot-info">
+                        <span class="spot-name">${cryptoData.name}</span>
+                        <span class="spot-symbol">${cryptoData.symbol.toUpperCase()}</span>
+                    </div>
+                </div>
+                <div class="spot-right">
+                    <span class="spot-price">${formattedPrice}</span>
+                    <span class="spot-arrow">→</span>
+                </div>
+            `;
+            
+            favRow.onclick = () => actionClic(cryptoData.id);
+            container.appendChild(favRow);
+        });
     }
 }
