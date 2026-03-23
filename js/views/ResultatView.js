@@ -139,7 +139,7 @@ export default class ResultatView {
         container.innerHTML = "";
 
         if (!listeFavoris || listeFavoris.length === 0) {
-            container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
+            container.innerHTML = '<span class="empty-msg">(Aucun favori)</span>';
             return;
         }
 
@@ -148,11 +148,8 @@ export default class ResultatView {
             favRow.classList.add('spotify-item');
             
             const prix = cryptoData.price || 0;
-            const nbDec = prix < 1 ? 6 : 2;
             const formattedPrice = new Intl.NumberFormat('en-US', { 
-                style: 'currency', 
-                currency: 'USD',
-                maximumFractionDigits: nbDec 
+                style: 'currency', currency: 'USD' 
             }).format(prix);
 
             favRow.innerHTML = `
