@@ -39,72 +39,49 @@ export default class Crypto {
         this.#fav = fav;
     }
 
-    /** @returns {string} */
     getId() { return this.#id; }
-    
-    /** @returns {string} */
     getName() { return this.#name; }
-    
-    /** @returns {string} */
     getSymbol() { return this.#symbol; }
-    
-    /** @returns {number} */
     getMarketCapRank() { return this.#market_cap_rank; }
-    
-    /** @returns {string} */
     getThumb() { return this.#thumb; }
-    
-    /** @returns {string} */
     getLarge() { return this.#large; }
-    
-    /** @returns {number} */
     getUsd() { return this.#usd; }
-    
-    /** @returns {number} */
     getUsd24hChange() { return this.#usd_24h_change; }
-    
-    /** @returns {number} */
     getUsd24hVol() { return this.#usd_24h_vol; }
-    
-    /** @returns {number} */
     getUsdMarketCap() { return this.#usd_market_cap; }
-
-    /** @returns {boolean} */
     isFav() { return this.#fav; }
 
-    /** @param {boolean} fav */
     setFav(fav) { this.#fav = fav; }
 
+
     saveFavToServer() {
-    let favoris = JSON.parse(localStorage.getItem('mesFavoris')) || [];
+        let favoris = JSON.parse(localStorage.getItem('mesFavoris')) || [];
 
-    if (this.#fav) {
+        if (this.#fav) {
 
-        const cryptoData = {
-            id: this.#id,
-            name: this.#name,
-            symbol: this.#symbol,
-            thumb: this.#thumb,
-            price: this.#usd, 
-            is_favorite: true
-        };
-        
-        const existeDeja = favoris.find(f => f.id === this.#id);
-        if (!existeDeja) favoris.push(cryptoData);
-    } else {
-        favoris = favoris.filter(f => f.id !== this.#id);
+            const cryptoData = {
+                id: this.#id,
+                name: this.#name,
+                symbol: this.#symbol,
+                thumb: this.#thumb,
+                price: this.#usd, 
+                is_favorite: true
+            };
+            
+
+            const existeDeja = favoris.find(f => f.id === this.#id);
+            if (!existeDeja) {
+                favoris.push(cryptoData);
+            }
+        } else {
+            favoris = favoris.filter(f => f.id !== this.#id);
+        }
+
+        localStorage.setItem('mesFavoris', JSON.stringify(favoris));
     }
 
-    localStorage.setItem('mesFavoris', JSON.stringify(favoris));
-}
-
-    /**
-     * Récupère la liste des IDs favoris depuis le local storage
-    * @static
-    * @returns {Promise<Object>} Données des favoris
-    */
     static async retrieveFavIdToServer() {
         const data = localStorage.getItem('mesFavoris');
-        return data ? JSON.parse(data) : [];
+        return data ? JSON.parse(data) : []; 
     }
 }
