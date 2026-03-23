@@ -103,7 +103,7 @@ export default class Crypto {
     * @static
     * @returns {Promise<Object>} Données des favoris
     */
-   static async retrieveFavIdToServer() {
+    static async retrieveFavIdToServer() {
         const data = localStorage.getItem('mesFavoris');
         return data ? JSON.parse(data) : [];
     }

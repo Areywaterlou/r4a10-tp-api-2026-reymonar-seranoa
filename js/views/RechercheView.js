@@ -34,17 +34,20 @@ export default class RechercheView {
         container.innerHTML = "";
 
         if (!listeFavoris || listeFavoris.length === 0) {
-            container.innerHTML = '<span class="empty-msg">(Aucun favori)</span>';
+            container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
             return;
         }
 
         listeFavoris.forEach(cryptoData => {
             const favRow = document.createElement('div');
-            favRow.classList.add('spotify-item');
-            
+            favRow.classList.add('spotify-item'); 
+
             const prix = cryptoData.price || 0;
+            const nbDec = prix < 1 ? 6 : 2; 
             const formattedPrice = new Intl.NumberFormat('en-US', { 
-                style: 'currency', currency: 'USD' 
+                style: 'currency', 
+                currency: 'USD',
+                maximumFractionDigits: nbDec 
             }).format(prix);
 
             favRow.innerHTML = `
@@ -60,7 +63,7 @@ export default class RechercheView {
                     <span class="spot-arrow">→</span>
                 </div>
             `;
-            
+
             favRow.onclick = () => actionClic(cryptoData.id);
             container.appendChild(favRow);
         });
