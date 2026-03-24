@@ -1,6 +1,3 @@
-/**
- * contient le code qui génère le HTML
- */
 export default class RechercheView {
     constructor() {
         this.barreRecherche = document.getElementById("cryptoInput");
@@ -9,45 +6,84 @@ export default class RechercheView {
         this.favoriteContener = document.getElementById("favoritesList");
     }
 
-    /**
-     * Récupère ce qui est écrit dans le champ texte
-     */
     getSaisie() {
-        return this.barreRecherche.value;
+        return this.barreRecherche ? this.barreRecherche.value.trim() : "";
     }
 
-    /**
-     * Affiche un message d'erreur si besoin
-     */
     afficherMessage(message) {
         alert(message);
     }
 
-    /**
- * Affiche le favori stocké dans le JSON
- * @param {Object} cryptoData - L'objet récupéré du serveur
- * @param {Function} actionClic - La redirection à effectuer au clic
- */
-afficherFavoris(cryptoData, actionClic) {
-    const container = document.getElementById("favoritesList");
-    if (!container) return;
-
+    afficherFavoris(listeFavoris, actionClic, actionSupprimer) {
+        const container = document.getElementById("favoritesList");
+        if (!container) return;
         container.innerHTML = "";
 
-        if (!cryptoData || !cryptoData.is_favorite) {
-                container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
-                return;
-            }
+        if (!listeFavoris || listeFavoris.length === 0) {
+            container.innerHTML = '<span class="empty-msg">(Aucun favori pour le moment)</span>';
+            return;
+        }
 
-    const favElement = document.createElement('div');
-    favElement.classList.add('fav-badge');
-        favElement.style.cursor = "pointer";
+        listeFavoris.forEach(cryptoData => {
+            const favRow = document.createElement('div');
+            favRow.classList.add('spotify-item');
+            
+            const prix = cryptoData.price || 0;
+            const nbDecimales = prix < 1 ? 8 : 2;
+            const formattedPrice = new Intl.NumberFormat('en-US', { 
+                style: 'currency', currency: 'USD',
+                minimumFractionDigits: 2, maximumFractionDigits: nbDecimales
+            }).format(prix);
+
+            favRow.innerHTML = `
+                <div class="spot-left">
+                    <img src="${cryptoData.thumb}" alt="${cryptoData.name}">
+                    <div class="spot-info">
+                        <span class="spot-name">${cryptoData.name}</span>
+                        <span class="spot-symbol">${cryptoData.symbol.toUpperCase()}</span>
+                    </div>
+                </div>
+                <div class="spot-right">
+                    <span class="spot-price">${formattedPrice}</span>
+                    <button class="remove-fav-btn" title="Retirer" style="background:none; border:none; cursor:pointer; font-size:1.2rem; filter: grayscale(100%); transition: 0.2s;">❌</button>
+                </div>
+            `;
+            
+            favRow.onclick = () => actionClic(cryptoData.id);
+
+            const btnRemove = favRow.querySelector('.remove-fav-btn');
+            btnRemove.onmouseover = () => btnRemove.style.filter = "none";
+            btnRemove.onmouseout = () => btnRemove.style.filter = "grayscale(100%)";
+            btnRemove.onclick = (e) => {
+                e.stopPropagation(); 
+                actionSupprimer(cryptoData.id);
+            };
+
+            container.appendChild(favRow);
+        });
+    }
+    afficherErreurRateLimit() {
+        const ancienneErreur = document.getElementById("rate-limit-error");
+        if (ancienneErreur) ancienneErreur.remove();
+
+        const box = document.createElement("div");
+        box.id = "rate-limit-error";
+        box.style.background = "rgba(255, 50, 50, 0.1)";
+        box.style.border = "1px solid #ff4444";
+        box.style.color = "#ff4444";
+        box.style.padding = "15px";
+        box.style.borderRadius = "12px";
+        box.style.textAlign = "center";
+        box.style.margin = "20px auto";
+        box.style.maxWidth = "600px";
+        box.style.fontWeight = "bold";
+
+        box.innerHTML = `⏳ <strong>Oups ! L'API CoinGecko est saturée.</strong><br>Merci de patienter un instant avant de réessayer.`;
+
+        document.querySelector("main").prepend(box);
         
-        // On utilise les données du JSON (id, symbol, name)
-        favElement.innerHTML = `<span>${cryptoData.symbol.toUpperCase()}</span>
-        `;
-        
-        favElement.onclick = () => actionClic(cryptoData.id);
-        container.appendChild(favElement);
+        setTimeout(() => {
+            if (box) box.remove();
+        }, 7000); 
     }
 }

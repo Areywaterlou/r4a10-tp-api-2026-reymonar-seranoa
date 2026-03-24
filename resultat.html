@@ -11,11 +11,16 @@
 <body class="results-page">
 
     <nav class="navbar">
-        <a href="index.html" class="back-btn">← Retour à la recherche</a>
-        <div class="nav-logo">Crypto<span class="green-text">Tracker</span></div>
-        <div class="nav-search">
-            <input type="text" placeholder="Nouvelle recherche...">
+        <a href="index.html" class="back-btn">← Retour à l'accueil</a>
+        
+        <div class="search-group" style="margin-bottom: 0; width: 50%;">
+            <div class="search-bar">
+                <input type="text" id="cryptoInput" placeholder="Chercher une autre crypto..." autocomplete="off">
+                <button class="icon-btn search-trigger" id="searchButton">🔍</button>
+            </div>
         </div>
+        
+        <div class="nav-logo">Crypto<span class="green-text">Tracker</span></div>
     </nav>
 
     <main class="result-container">
