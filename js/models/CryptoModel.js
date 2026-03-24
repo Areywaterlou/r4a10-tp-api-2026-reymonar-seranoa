@@ -53,7 +53,9 @@ export default class Crypto {
 
     setFav(fav) { this.#fav = fav; }
 
-
+    /**
+     * méthode pour sauvegarder les drecherche favorites
+     */
     saveFavToServer() {
         let favoris = JSON.parse(localStorage.getItem('mesFavoris')) || [];
 

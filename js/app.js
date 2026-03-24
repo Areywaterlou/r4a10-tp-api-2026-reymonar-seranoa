@@ -9,12 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cheminActuel = window.location.pathname;
 
     if (cheminActuel.includes("resultat.html")) {
-        console.log("🚀 Démarrage du mode Résultat...");
         const view = new ResultatView();
         const app = new ResultatController(view);
         app.init();
     } else {
-        console.log("🏠 Démarrage du mode Accueil...");
         const view = new RechercheView();
         const app = new RechercheController(view); 
         app.init();

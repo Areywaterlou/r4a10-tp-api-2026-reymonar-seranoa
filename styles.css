@@ -134,7 +134,7 @@ input::placeholder {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-    justify-content: center; /* Centre le titre pour équilibrer avec la boîte */
+    justify-content: center;
     gap: 10px;
 }
 
@@ -146,16 +146,16 @@ input::placeholder {
 .favorites-box {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; /* Espacement propre entre les badges */
-    min-height: 80px; /* Donne un bel espace même si c'est vide */
-    width: 100%; /* Force la boîte à prendre toute la largeur */
+    gap: 15px; 
+    min-height: 80px; 
+    width: 100%; 
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px dashed rgba(130, 204, 30, 0.3); /* Bordure avec ton vert de base en transparent */
+    border: 1px dashed rgba(130, 204, 30, 0.3);
     border-radius: 12px;
     padding: 20px;
     align-items: center;
-    justify-content: center; /* Centre les badges à l'intérieur */
+    justify-content: center; 
     color: var(--text-secondary);
     transition: all 0.3s ease;
 }
@@ -218,7 +218,7 @@ input::placeholder {
 
 /* Zone Prix */
 .fav-price {
-    color: #00ff95; /* Vert Néon */
+    color: #00ff95; 
     font-family: 'JetBrains Mono', monospace;
     font-weight: bold;
     font-size: 1rem;
@@ -236,7 +236,7 @@ input::placeholder {
     opacity: 0;
 }
 
-/* La ligne style Spotify */
+
 .spotify-item {
     display: flex;
     align-items: center;
@@ -258,7 +258,7 @@ input::placeholder {
     transform: scale(0.99);
 }
 
-/* Partie gauche : Image + Textes */
+
 .spot-left {
     display: flex;
     align-items: center;
@@ -268,7 +268,7 @@ input::placeholder {
 .spot-left img {
     width: 40px;
     height: 40px;
-    border-radius: 4px; /* Un peu plus carré comme les albums */
+    border-radius: 4px; 
 }
 
 .spot-info {
@@ -349,7 +349,7 @@ input::placeholder {
     box-shadow: 0 0 8px var(--green-accent);
 }
 
-/* --- Styles spécifiques à la page de résultats --- */
+/* --- Styles spécifiques à la page de résultat --- */
 .results-page {
     display: block;
     overflow-y: auto;
@@ -435,7 +435,7 @@ input::placeholder {
     font-weight: 600; 
 }
 
-/* Grille de stats */
+/* grille de stats */
 .data-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -530,7 +530,7 @@ input::placeholder {
     border-radius: 2px;
 }
 
-/* --- SECTION & LISTE FAVORIS (UNIFIÉ) --- */
+/* --- section & LISTE favoris --- */
 
 .favorites-full-width {
     width: 100%;
@@ -575,7 +575,7 @@ input::placeholder {
 .spotify-item:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: var(--green-accent);
-    transform: translateX(8px); /* Effet de glissement fluide */
+    transform: translateX(8px);
 }
 
 .spot-left {

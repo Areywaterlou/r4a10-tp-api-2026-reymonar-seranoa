@@ -143,7 +143,7 @@ afficherErreurRateLimit() {
         box.style.maxWidth = "600px";
         box.style.fontWeight = "bold";
 
-        box.innerHTML = `⏳ <strong>Oups ! L'API CoinGecko est saturée.</strong><br>Merci de patienter un instant et de rafraîchir la page.`;
+        box.innerHTML = `<strong> L'API CoinGecko est saturée.</strong><br>Merci de patienter un instant et de rafraîchir la page.`;
 
         document.querySelector("main").prepend(box);
         

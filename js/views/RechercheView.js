@@ -78,7 +78,7 @@ export default class RechercheView {
         box.style.maxWidth = "600px";
         box.style.fontWeight = "bold";
 
-        box.innerHTML = `⏳ <strong>Oups ! L'API CoinGecko est saturée.</strong><br>Merci de patienter un instant avant de réessayer.`;
+        box.innerHTML = `<strong>L'API CoinGecko est saturée.</strong><br>Merci de patienter un instant avant de réessayer.`;
 
         document.querySelector("main").prepend(box);
         

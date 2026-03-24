@@ -52,7 +52,7 @@ export default class ResultatController {
             if (this.view && typeof this.view.afficherErreurRateLimit === "function") {
                 this.view.afficherErreurRateLimit();
             } else {
-                alert("Erreur réseau ou API saturée. Attends un peu !");
+                alert("Erreur réseau ou API saturée. Attendez un peu.");
             }
         }
     }
@@ -120,7 +120,7 @@ export default class ResultatController {
             if (this.view && typeof this.view.afficherErreurRateLimit === "function") {
                 this.view.afficherErreurRateLimit();
             } else {
-                alert("Erreur réseau ou API saturée. Attends un peu !");
+                alert("Erreur réseau ou API saturée. Attendez un peu.");
             }
         }
     }
