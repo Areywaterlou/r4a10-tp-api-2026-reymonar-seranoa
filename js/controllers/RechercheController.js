@@ -9,7 +9,9 @@ export default class RechercheController {
         this.ecouteEvent();
         this.chargerEtAfficherFavoris(); 
     }
-
+    /**
+     * Méthode pour charger et afficher les favoris dans la bonne page
+     */
     async chargerEtAfficherFavoris() {
         const listeFavoris = await Crypto.retrieveFavIdToServer();
         
@@ -39,7 +41,11 @@ export default class RechercheController {
             });
         }
     }
-
+    /**
+     * Méthode pour rechercher une crypto
+     * @param {*} saisie 
+     * @returns 
+     */
     async rechercher(saisie) {
         if (!saisie) return; 
 

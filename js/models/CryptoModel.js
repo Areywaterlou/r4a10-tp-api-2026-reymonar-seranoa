@@ -24,7 +24,9 @@ export default class Crypto {
     #usd_market_cap;
     /** @type {boolean} */
     #fav;
-
+    /**
+     * Constructeur
+     */
     constructor(id, name, symbol, market_cap_rank, thumb, large, usd, usd_24h_change, usd_24h_vol, usd_market_cap, fav) {
         this.#id = id;
         this.#name = name;
@@ -38,7 +40,7 @@ export default class Crypto {
         this.#usd_market_cap = usd_market_cap;
         this.#fav = fav;
     }
-
+    //Gestteurs et setter
     getId() { return this.#id; }
     getName() { return this.#name; }
     getSymbol() { return this.#symbol; }

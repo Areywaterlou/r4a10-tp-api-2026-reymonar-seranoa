@@ -7,9 +7,11 @@ export default class ResultatController {
 
     async init() {
         if (this.view.btnRechercher && this.view.barreRecherche) {
+            // clic sur le bouton rechercher
             this.view.btnRechercher.addEventListener('click', () => {
                 this.lancerNouvelleRecherche(this.view.getSaisie());
             });
+            //bouton entré pour la barre de recherche
             this.view.barreRecherche.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     this.lancerNouvelleRecherche(this.view.getSaisie());
@@ -18,15 +20,21 @@ export default class ResultatController {
         }
 
         const params = new URLSearchParams(window.location.search);
+
         const id = params.get('id'); 
         if (id) {
             this.chargerDonnees(id);
         }
     }
-
+    /**
+     * Méthode pour lancer une recherche a partir de l'autre page que la page de recherche
+     * @param {*} saisie 
+     * @returns 
+     */
     async lancerNouvelleRecherche(saisie) {
         if(!saisie) return;
         try {
+             // appel API recherche CoinGecko
             const urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
             const reponse = await fetch(urlRecherche);
             
@@ -39,9 +47,11 @@ export default class ResultatController {
             
             if (donnees.coins && donnees.coins.length > 0) {
                 const rechercheMinuscule = saisie.toLowerCase();
+                
+                // cherche un symbole exact
                 const tokenExact = donnees.coins.find(c => c.symbol && c.symbol.toLowerCase() === rechercheMinuscule);
                 const idOfficiel = tokenExact ? tokenExact.id : donnees.coins[0].id; 
-                
+                // redirection vers page résultat
                 window.location.href = `resultat.html?id=${idOfficiel}`;
             } else {
                 alert("Aucune crypto trouvée.");
@@ -56,9 +66,14 @@ export default class ResultatController {
             }
         }
     }
-
+    /**
+     * Méthode pour charger les données de la Crypto
+     * @param {*} id 
+     * @returns 
+     */
     async chargerDonnees(id) {
         try {
+            // recherche info crypto
             const repInfo = await fetch(`https://api.coingecko.com/api/v3/search?query=${id}`);
             
             if (repInfo.status === 429) {
@@ -67,6 +82,7 @@ export default class ResultatController {
             }
 
             const dataInfo = await repInfo.json();
+             // si aucun résultat   
             if (!dataInfo.coins || dataInfo.coins.length === 0) return;
 
             const base = dataInfo.coins.find(c => c.id === id) || dataInfo.coins[0];
@@ -83,7 +99,8 @@ export default class ResultatController {
             }
 
             const suggerees = dataInfo.coins.filter(c => c.id !== idOfficiel).slice(0, 5); 
-
+            
+            // récupère les données de prix
             const repPrix = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${idOfficiel}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`);
             
             if (repPrix.status === 429) {
@@ -124,7 +141,11 @@ export default class ResultatController {
             }
         }
     }
-    
+    /**
+     * Pour mettre a jour le chanmps de favoris
+     * @param {*} idOfficielActuel 
+     * @param {*} objetCryptoActuel 
+     */
     async rafraichirListeFavoris(idOfficielActuel, objetCryptoActuel) {
         const favStocke = await Crypto.retrieveFavIdToServer();
         this.view.afficherFavoris(
