@@ -87,7 +87,7 @@ export default class Crypto {
      * récupérer les favoris stockés dans le navigateur
      * @returns 
      */
-    static async retrieveFavIdToServer() {
+    static async retrieveFavIdToServer() { 
         const data = localStorage.getItem('mesFavoris');
         return data ? JSON.parse(data) : []; 
     }
