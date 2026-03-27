@@ -71,17 +71,20 @@ export default class Crypto {
             };
             
 
-            const existeDeja = favoris.find(f => f.id === this.#id);
-            if (!existeDeja) {
-                favoris.push(cryptoData);
-            }
-        } else {
-            favoris = favoris.filter(f => f.id !== this.#id);
+        const existeDeja = favoris.find(f => f.id === this.#id);
+        if (!existeDeja) {
+            favoris.push(cryptoData); //on ajoute cryptoData à la fin du tableau favoris
+        }
+            } else {
+            favoris = favoris.filter(f => f.id !== this.#id); // on supprime  du tableau de favoris
         }
 
         localStorage.setItem('mesFavoris', JSON.stringify(favoris));
     }
-
+    /**
+     * récupérer les favoris stockés dans le navigateur
+     * @returns 
+     */
     static async retrieveFavIdToServer() {
         const data = localStorage.getItem('mesFavoris');
         return data ? JSON.parse(data) : []; 
