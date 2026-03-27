@@ -26,7 +26,9 @@ export default class RechercheController {
             }
         );
     }
-
+    /**
+     * Méthode pour écouter le clic et la touche entrée
+     */
     ecouteEvent() {
         if (this.view.btnRechercher) {
             this.view.btnRechercher.addEventListener('click', () => {
@@ -42,27 +44,32 @@ export default class RechercheController {
         }
     }
     /**
-     * Méthode pour rechercher une crypto
+     * Lance une recherche de crypto-monnaie via l'API CoinGecko
+     * Redirige vers la page de détails si un résultat est trouvé
      * @param {*} saisie 
      * @returns 
      */
     async rechercher(saisie) {
+
         if (!saisie) return; 
 
         try {
             const urlRecherche = `https://api.coingecko.com/api/v3/search?query=${saisie}`;
             const reponse = await fetch(urlRecherche);
             
+            // Gestion spécifique du Rate Limit (limite de requêtes de l'API gratuite)
             if (reponse.status === 429) {
                 this.view.afficherErreurRateLimit();
                 return;
             }
 
             const donnees = await reponse.json();
-            
+
+            // Tentative de trouver une correspondance exacte sur le symbole
             if (donnees.coins && donnees.coins.length > 0) {
                 const rechercheMinuscule = saisie.toLowerCase();
                 const tokenExact = donnees.coins.find(c => c.symbol && c.symbol.toLowerCase() === rechercheMinuscule);
+                // On cherche avec le token exact
                 const idOfficiel = tokenExact ? tokenExact.id : donnees.coins[0].id; 
                 
                 window.location.href = `resultat.html?id=${idOfficiel}`;
@@ -70,12 +77,13 @@ export default class RechercheController {
                 this.view.afficherMessage("Aucune crypto trouvée.");
             }
         } catch (error) {
+            //gestion des erreurs
             console.error("Erreur interceptée par le catch :", error);
             
             if (this.view && typeof this.view.afficherErreurRateLimit === "function") {
                 this.view.afficherErreurRateLimit();
             } else {
-                alert("Erreur réseau ou API saturée. Attendez un peu .");
+                alert("Erreur réseau ou API saturée. Attendez un peu.");
             }
         }
     }
